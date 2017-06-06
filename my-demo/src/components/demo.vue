@@ -28,9 +28,10 @@ export default {
   },
   methods:{
     goto(){
-      this.$ajax.get('/api/user',{
+      this.$ajax.get('/api/updateUsers',{
         params:{
-          ID:this.value
+          name:this.name,
+          text:this.text,
         }
       })
         .then(function(response){

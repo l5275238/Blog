@@ -2,11 +2,21 @@ var express = require('express');
 var api=require('./api')
 var app=express();
 app.get('/user',function (req,res) {
-    api.updateUse(function (rows) {
+    api.findUse(function (rows) {
         console.log(rows);
         res.json(rows)
     })
 });
+app.get('/updateUsers',function (req,res) {
+    var name=req.query.name;
+    var text=req.query.text;
+    console.log(name);
+    console.log(text);
+    api.updateUse(function (rows) {
+        rows.code='sucusec';
+        res.json(rows);
+    },name,text)
+})
 var server=app.listen(3000,function () {
     console.log('成功');
     console.log(api);

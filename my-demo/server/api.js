@@ -8,13 +8,22 @@ var connection =mysql.createConnection({
 })
 function Request() {
   connection.connect();
-  this.updateUse=function (callback) {
+  this.findUse=function (callback) {
     connection.query('SELECT * FROM user', function (error,rows,fields) {
       if (error) throw error;
       callback(rows);
     });
   }
+  this.updateUse=function (callback,name,text) {
+    var sql="update user  set name= '"+name+"',text='"+text+"' where id = '1'"
+    console.log(sql);
+    connection.query(sql,function (error,rows,fields) {
+      if (error) throw error;
+      callback(rows);
+    })
+  }
 
 }
+
 module.exports = new Request();
 
