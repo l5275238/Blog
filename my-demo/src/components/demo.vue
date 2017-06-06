@@ -1,6 +1,15 @@
 <template>
-<div>
-  你好
+<div class="hello">
+  <div>
+    <span>昵称</span>
+    <Input v-model="name" placeholder="请输入..." style="width: 300px"></Input>
+  </div>
+  <div>
+    <span>介绍</span>
+    <Input v-model="text" placeholder="请输入..." style="width: 300px"></Input>
+  </div>
+
+  <Button type="info" @click="goto">保存</Button>
 </div>
 </template>
 
@@ -9,9 +18,49 @@ export default {
   name: 'hello',
   data () {
     return {
-      msg: 'Welcome to Your demo'
+        name:null,
+      value: '',
+      text:null,
     }
-  }
+  },
+  created(){
+    this.fetData();
+  },
+  methods:{
+    goto(){
+      this.$ajax.get('/api/user',{
+        params:{
+          ID:this.value
+        }
+      })
+        .then(function(response){
+          console.log(response);
+        })
+        .catch(function(err){
+          console.log(err);
+        });
+    },
+    fetData(){
+        var that=this;
+      this.$ajax.get('/api/user',{
+        params:{
+          ID:this.value
+        }
+      })
+        .then(function(data){
+          console.log(data);
+          var obj=data.data[0];
+          that.text=obj.text;
+          that.name=obj.name;
+        })
+        .catch(function(err){
+          console.log(err);
+        });
+    }
+  },
+
+
+
 }
 </script>
 
