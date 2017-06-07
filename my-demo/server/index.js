@@ -15,12 +15,14 @@ app.get('/updateUsers',function (req,res) {
     console.log(text);
     api.updateUse(function (rows) {
         rows.code='sucusec';
+
         res.json(rows);
     },name,text)
 });
 app.post('/profile', upload.single('img'), function (req, res, next) {
   console.log(req.file);
   // req.file 是 `avatar` 文件的信息
+  res.json(req.file);
   // req.body 将具有文本域数据, 如果存在的话
 })
 var server=app.listen(3000,function () {
