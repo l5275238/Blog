@@ -8,6 +8,16 @@
     <span>介绍</span>
     <Input v-model="text" placeholder="请输入..." style="width: 300px"></Input>
   </div>
+  <Upload
+  multiple
+  type="drag"
+  action="/api/profile"
+  name="img">
+  <div style="padding: 20px 0">
+    <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
+    <p>点击或将文件拖拽到这里上传</p>
+  </div>
+</Upload>
 
   <Button type="info" @click="goto">保存</Button>
 </div>
@@ -59,6 +69,11 @@ export default {
         });
     }
   },
+  upload(response, file, fileList){
+    console.log(fileList);
+    console.log(file);
+    console.log(response);
+  }
 
 
 
