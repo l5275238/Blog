@@ -1,7 +1,12 @@
 var express = require('express');
 var api=require('./api');
 var upload=require('./upload')
+var bodyParser = require('body-parser')
 var app=express();
+// app.use(bodyParser.urlencoded({ extended: false }))
+// app.use(bodyParser.json())
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.get('/user',function (req,res) {
     api.findUse(function (rows) {
         console.log(rows);
@@ -19,6 +24,18 @@ app.get('/updateUsers',function (req,res) {
         res.json(rows);
     },name,text)
 });
+app.post('/addText',function (req,res) {
+    var text=req.body.params.text;
+  console.log(text);
+  api.addText(function () {
+    res.json('succes');
+  },text)
+})
+app.post('/findText',function (req,res) {
+  api.findText(function (rows) {
+    res.json(rows);
+  })
+})
 app.post('/profile', upload.single('img'), function (req, res, next) {
   console.log(req.file);
   // req.file 是 `avatar` 文件的信息

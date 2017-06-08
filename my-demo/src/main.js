@@ -6,7 +6,9 @@ import axios from 'axios';
 import 'iview/dist/styles/iview.css';
 import App from './App'
 import router from './router'
+import quillEditor  from 'vue-quill-editor'
 Vue.use(iView)
+Vue.use(quillEditor)
 Vue.prototype.$ajax = axios
 Vue.config.productionTip = false
 

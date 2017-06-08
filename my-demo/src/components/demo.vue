@@ -18,7 +18,13 @@
     <p>点击或将文件拖拽到这里上传</p>
   </div>
 </Upload>
+  <quill-editor ref="myTextEditor"
+                v-model="content"
+                >
+  </quill-editor>
+  <div v-html="wenZhang">
 
+  </div>
   <Button type="info" @click="goto">保存</Button>
 </div>
 </template>
@@ -31,6 +37,8 @@ export default {
         name:null,
       value: '',
       text:null,
+      content:'',
+      wenZhang:''
     }
   },
   created(){
@@ -38,10 +46,9 @@ export default {
   },
   methods:{
     goto(){
-      this.$ajax.get('/api/updateUsers',{
+      this.$ajax.post('/api/addText',{
         params:{
-          name:this.name,
-          text:this.text,
+          text:this.content,
         }
       })
         .then(function(response){
@@ -67,6 +74,18 @@ export default {
         .catch(function(err){
           console.log(err);
         });
+      this.$ajax.post('/api/findText')
+        .then(function(data){
+          var obj=data.data[0];
+          console.log(data);
+          that.wenZhang=obj.text
+        })
+        .catch(function(err){
+          console.log(err);
+        });
+
+
+
     }
   },
   upload(response, file, fileList){

@@ -22,6 +22,20 @@ function Request() {
       callback(rows);
     })
   }
+  this.addText=function (callback,text) {
+    var sql="INSERT INTO Article (title, text , id) VALUES (1,'"+text+"',1)";
+    connection.query(sql,function (error,rows,fields) {
+      if (error) throw error;
+      callback(rows);
+    })
+  }
+  this.findText=function (callback) {
+    connection.query('SELECT * FROM Article where id =2 ', function (error,rows,fields) {
+      if (error) throw error;
+      console.log(rows);
+      callback(rows);
+    });
+  }
 
 }
 
