@@ -14,7 +14,7 @@
               <Icon type="ios-keypad" :size="iconSize"></Icon>
               <span class="layout-text">选项 2</span>
             </Menu-item>
-            <Menu-item name="3">
+            <Menu-item name="/article">
               <Icon type="ios-analytics" :size="iconSize"></Icon>
               <span class="layout-text">选项 3</span>
             </Menu-item>

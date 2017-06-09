@@ -16,6 +16,12 @@ export default new Router({
       path:'/app',
       name:'demo',
       component:demo
-    }
+    },
+    {
+      path:'/article',
+      name:'article',
+      component:article
+    },
+
   ]
 })
