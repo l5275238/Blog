@@ -34,7 +34,6 @@ function Request() {
   this.findText=function (callback) {
     connection.query('SELECT * FROM Article where id =2 ', function (error,rows,fields) {
       if (error) throw error;
-      console.log(rows);
       callback(rows);
     });
   }
@@ -50,7 +49,6 @@ function Request() {
   this.findCategory=function (callback) {
     var sql="SELECT * FROM category"
     connection.query(sql,function (error,rows,fields) {
-      console.log(rows);
       if (error) throw error;
       callback(rows)
     })

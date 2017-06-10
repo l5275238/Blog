@@ -7,17 +7,16 @@ var app=express();
 // app.use(bodyParser.json())
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
 app.get('/user',function (req,res) {
     api.findUse(function (rows) {
-        console.log(rows);
+
         res.json(rows)
     })
 });
 app.get('/updateUsers',function (req,res) {
     var name=req.query.name;
     var text=req.query.text;
-    console.log(name);
-    console.log(text);
     api.updateUse(function (rows) {
         rows.code='sucusec';
 
@@ -32,7 +31,6 @@ app.post('/addArticle',function (req,res) {
     var cateId=req.body.params.cateId;
     var text=req.body.params.text;
   obj='"'+title+'",'+'"'+cateId+'",'+'"'+text+'",'+'"'+data+'"'
-  console.log(obj);
   api.addArticle(function () {
     res.json('succes');
   },obj)
@@ -43,14 +41,14 @@ app.post('/findText',function (req,res) {
   })
 })
 app.post('/profile', upload.single('img'), function (req, res, next) {
-  console.log(req.file);
+
   // req.file 是 `avatar` 文件的信息
   res.json(req.file);
   // req.body 将具有文本域数据, 如果存在的话
 })
 app.get('/addcategory',function (req,res) {
   var text=req.query.text;
-  console.log(text);
+
   api.addCategory(function () {
     res.json('succese')
   },text)
@@ -58,7 +56,6 @@ app.get('/addcategory',function (req,res) {
 
 app.post('/findCategory',function (req,res) {
   api.findCategory(function (rows) {
-    console.log(rows);
     res.json(rows)
   })
 })
