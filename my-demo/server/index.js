@@ -24,12 +24,18 @@ app.get('/updateUsers',function (req,res) {
         res.json(rows);
     },name,text)
 });
-app.post('/addText',function (req,res) {
+//添加文章
+app.post('/addArticle',function (req,res) {
+  var d=new Date();
+    var data= d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();;
+    var title=req.body.params.title;
+    var cateId=req.body.params.cateId;
     var text=req.body.params.text;
-  console.log(text);
-  api.addText(function () {
+  obj='"'+title+'",'+'"'+cateId+'",'+'"'+text+'",'+'"'+data+'"'
+  console.log(obj);
+  api.addArticle(function () {
     res.json('succes');
-  },text)
+  },obj)
 })
 app.post('/findText',function (req,res) {
   api.findText(function (rows) {
@@ -42,6 +48,21 @@ app.post('/profile', upload.single('img'), function (req, res, next) {
   res.json(req.file);
   // req.body 将具有文本域数据, 如果存在的话
 })
+app.get('/addcategory',function (req,res) {
+  var text=req.query.text;
+  console.log(text);
+  api.addCategory(function () {
+    res.json('succese')
+  },text)
+})
+
+app.post('/findCategory',function (req,res) {
+  api.findCategory(function (rows) {
+    console.log(rows);
+    res.json(rows)
+  })
+})
+
 var server=app.listen(3000,function () {
     console.log('成功');
     console.log(api);

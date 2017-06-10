@@ -22,8 +22,10 @@ function Request() {
       callback(rows);
     })
   }
-  this.addText=function (callback,text) {
-    var sql="INSERT INTO Article (title, text , id) VALUES (1,'"+text+"',1)";
+  //添加文章
+  this.addArticle=function (callback,text) {
+    var sql="INSERT INTO Article (title,cateId, text ,data) VALUES ("+text+")";
+    console.log(sql);
     connection.query(sql,function (error,rows,fields) {
       if (error) throw error;
       callback(rows);
@@ -35,6 +37,24 @@ function Request() {
       console.log(rows);
       callback(rows);
     });
+  }
+  //添加分类;
+  this.addCategory=function (callback,text) {
+    var sql="INSERT INTO category (text) VALUES('"+text+"')";
+    connection.query(sql,function (error,rows,fields) {
+      if (error) throw error;
+      callback(rows)
+    })
+  }
+    //获取分类列表
+  this.findCategory=function (callback) {
+    var sql="SELECT * FROM category"
+    connection.query(sql,function (error,rows,fields) {
+      console.log(rows);
+      if (error) throw error;
+      callback(rows)
+    })
+
   }
 
 }

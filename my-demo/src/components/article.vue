@@ -1,100 +1,140 @@
 <template>
-<div class="hello">
-  <div>
-    <span>昵称</span>
-    <Input v-model="name" placeholder="请输入..." style="width: 300px"></Input>
+<div class="article">
+  <Button type="info" id="goToFaBu" @click="goToFaBu">发布博客</Button>
+  <Table :data="tableData1" :columns="tableColumns1" stripe></Table>
+  <div style="margin: 10px;overflow: hidden">
+    <div style="float: right;">
+      <Page :total="100" :current="1" @on-change="changePage"></Page>
+    </div>
   </div>
-  <div>
-    <span>介绍</span>
-    <Input v-model="text" placeholder="请输入..." style="width: 300px"></Input>
-  </div>
-  <Upload
-  multiple
-  type="drag"
-  action="/api/profile"
-  name="img">
-  <div style="padding: 20px 0">
-    <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
-    <p>点击或将文件拖拽到这里上传</p>
-  </div>
-</Upload>
-  <quill-editor ref="myTextEditor"
-                v-model="content"
-                >
-  </quill-editor>
-  <div v-html="wenZhang">
-
-  </div>
-  <Button type="info" @click="goto">保存</Button>
 </div>
 </template>
 
 <script>
 export default {
-  name: 'hello',
+  name: 'article',
   data () {
     return {
-        name:null,
-      value: '',
-      text:null,
-      content:'',
-      wenZhang:''
+      tableData1: this.mockTableData1(),
+      tableColumns1: [
+        {
+          title: '标题  ',
+          key: 'name',
+          align: 'center',
+        },
+
+
+        {
+          title: '分类',
+          key: 'time',
+          align: 'center',
+          render: (h, params) => {
+            return h('div', '近' + params.row.time + '天');
+          }
+        },
+
+        {
+          title: '发布时间',
+          key: 'update',
+          align: 'center',
+          render: (h, params) => {
+            return h('div', this.formatDate(this.tableData1[params.index].update));
+          }
+        },
+        {
+          title: '操作',
+          key: 'action',
+          align: 'center',
+
+          render: (h, params) => {
+            return h('div', [
+              h('Button', {
+                props: {
+                  type: 'primary',
+                  size: 'small'
+                },
+                style: {
+                  marginRight: '5px'
+                },
+                on: {
+                  click: () => {
+                    this.show(params.index)
+                  }
+                }
+              }, '查看'),
+              h('Button', {
+                props: {
+                  type: 'error',
+                  size: 'small'
+                },
+                on: {
+                  click: () => {
+                    this.remove(params.index)
+                  }
+                }
+              }, '删除')
+            ]);
+          }
+
+        }
+      ]
     }
   },
-  created(){
-    this.fetData();
-  },
-  methods:{
-    goto(){
-      this.$ajax.post('/api/addText',{
-        params:{
-          text:this.content,
-        }
+  methods: {
+    show (index) {
+      this.$Modal.info({
+        title: '用户信息',
+        content: `姓名：${this.data6[index].name}<br>年龄：${this.data6[index].age}<br>地址：${this.data6[index].address}`
       })
-        .then(function(response){
-          console.log(response);
-        })
-        .catch(function(err){
-          console.log(err);
-        });
     },
-    fetData(){
-        var that=this;
-      this.$ajax.get('/api/user',{
-        params:{
-          ID:this.value
-        }
-      })
-        .then(function(data){
-          console.log(data);
-          var obj=data.data[0];
-          that.text=obj.text;
-          that.name=obj.name;
+    remove (index) {
+      this.data6.splice(index, 1);
+    },
+    goToFaBu(){
+      this.$router.push('/addArticle')
+    },
+
+    mockTableData1 () {
+      let data = [];
+      for (let i = 0; i < 10; i++) {
+        data.push({
+          name: '商圈' + Math.floor(Math.random () * 100 + 1),
+          status: Math.floor(Math.random () * 3 + 1),
+          portrayal: ['城市渗透', '人群迁移', '消费指数', '生活指数', '娱乐指数'],
+          people: [
+            {
+              n: '客群' + Math.floor(Math.random () * 100 + 1),
+              c: Math.floor(Math.random () * 1000000 + 100000)
+            },
+            {
+              n: '客群' + Math.floor(Math.random () * 100 + 1),
+              c: Math.floor(Math.random () * 1000000 + 100000)
+            },
+            {
+              n: '客群' + Math.floor(Math.random () * 100 + 1),
+              c: Math.floor(Math.random () * 1000000 + 100000)
+            }
+          ],
+          time: Math.floor(Math.random () * 7 + 1),
+          update: new Date()
         })
-        .catch(function(err){
-          console.log(err);
-        });
-      this.$ajax.post('/api/findText')
-        .then(function(data){
-          var obj=data.data[0];
-          console.log(data);
-          that.wenZhang=obj.text
-        })
-        .catch(function(err){
-          console.log(err);
-        });
-
-
-
+      }
+      return data;
+    },
+    formatDate (date) {
+      const y = date.getFullYear();
+      let m = date.getMonth() + 1;
+      m = m < 10 ? '0' + m : m;
+      let d = date.getDate();
+      d = d < 10 ? ('0' + d) : d;
+      return y + '-' + m + '-' + d;
+    },
+    changePage (index) {
+      // 这里直接更改了模拟的数据，真实使用场景应该从服务端获取数据
+//
+      console.log(index);
     }
-  },
-  upload(response, file, fileList){
-    console.log(fileList);
-    console.log(file);
-    console.log(response);
   }
-
-
 
 }
 </script>

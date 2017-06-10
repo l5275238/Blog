@@ -10,13 +10,13 @@
               <Icon type="ios-navigate" :size="iconSize"></Icon>
               <span class="layout-text">个人信息</span>
             </Menu-item>
-            <Menu-item name="2">
+            <Menu-item name="/Hello">
               <Icon type="ios-keypad" :size="iconSize"></Icon>
               <span class="layout-text">选项 2</span>
             </Menu-item>
-            <Menu-item name="/article">
+            <Menu-item name="/articl">
               <Icon type="ios-analytics" :size="iconSize"></Icon>
-              <span class="layout-text">选项 3</span>
+              <span class="layout-text">发布文章</span>
             </Menu-item>
           </Menu>
         </i-col>
@@ -75,7 +75,7 @@ export default {
       }
     },
     routeTo (name){
-      this.$router.push(name)
+      this.$router.push(name);
       this.text=name;
     }
   }
