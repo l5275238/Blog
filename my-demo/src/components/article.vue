@@ -4,7 +4,7 @@
   <Table :data="tableData1" :columns="tableColumns1" stripe></Table>
   <div style="margin: 10px;overflow: hidden">
     <div style="float: right;">
-      <Page :total="100" :current="1" @on-change="changePage"></Page>
+      <Page :total="length" :current="1" @on-change="changePage"></Page>
     </div>
   </div>
 </div>
@@ -15,30 +15,28 @@ export default {
   name: 'article',
   data () {
     return {
-      tableData1: this.mockTableData1(),
+      tableData1:[],
+      length:'',
       tableColumns1: [
         {
           title: '标题  ',
-          key: 'name',
+          key: 'title',
           align: 'center',
         },
 
 
         {
           title: '分类',
-          key: 'time',
+          key: 'text',
           align: 'center',
-          render: (h, params) => {
-            return h('div', '近' + params.row.time + '天');
-          }
         },
 
         {
           title: '发布时间',
-          key: 'update',
+          key: 'data',
           align: 'center',
           render: (h, params) => {
-            return h('div', this.formatDate(this.tableData1[params.index].update));
+            return h('div', this.formatDate(this.tableData1[params.index].date));
           }
         },
         {
@@ -61,7 +59,7 @@ export default {
                     this.show(params.index)
                   }
                 }
-              }, '查看'),
+              }, '编辑'),
               h('Button', {
                 props: {
                   type: 'error',
@@ -80,6 +78,10 @@ export default {
       ]
     }
   },
+  created(){
+    this.fetData();
+  },
+
   methods: {
     show (index) {
       this.$Modal.info({
@@ -93,41 +95,26 @@ export default {
     goToFaBu(){
       this.$router.push('/addArticle')
     },
-
-    mockTableData1 () {
-      let data = [];
-      for (let i = 0; i < 10; i++) {
-        data.push({
-          name: '商圈' + Math.floor(Math.random () * 100 + 1),
-          status: Math.floor(Math.random () * 3 + 1),
-          portrayal: ['城市渗透', '人群迁移', '消费指数', '生活指数', '娱乐指数'],
-          people: [
-            {
-              n: '客群' + Math.floor(Math.random () * 100 + 1),
-              c: Math.floor(Math.random () * 1000000 + 100000)
-            },
-            {
-              n: '客群' + Math.floor(Math.random () * 100 + 1),
-              c: Math.floor(Math.random () * 1000000 + 100000)
-            },
-            {
-              n: '客群' + Math.floor(Math.random () * 100 + 1),
-              c: Math.floor(Math.random () * 1000000 + 100000)
-            }
-          ],
-          time: Math.floor(Math.random () * 7 + 1),
-          update: new Date()
+    fetData () {
+        var that=this;
+      this.$ajax.get('/api/findArticle',{
+        params:{
+         page:1,
+          row:10
+        }
+      })
+        .then(function(response){
+         that.tableData1=response.data;
+         that.lenght=response.data.length
         })
-      }
-      return data;
+        .catch(function(err){
+          console.log(err);
+        });
     },
+
     formatDate (date) {
-      const y = date.getFullYear();
-      let m = date.getMonth() + 1;
-      m = m < 10 ? '0' + m : m;
-      let d = date.getDate();
-      d = d < 10 ? ('0' + d) : d;
-      return y + '-' + m + '-' + d;
+
+      return date;
     },
     changePage (index) {
       // 这里直接更改了模拟的数据，真实使用场景应该从服务端获取数据

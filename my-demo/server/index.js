@@ -59,6 +59,13 @@ app.post('/findCategory',function (req,res) {
     res.json(rows)
   })
 })
+app.get('/findArticle',function (req,res) {
+  var page=req.query.page;
+  var row=req.query.row;
+  api.findArticle(function (rows) {
+    res.json(rows)
+  },page,row)
+})
 
 var server=app.listen(3000,function () {
     console.log('成功');

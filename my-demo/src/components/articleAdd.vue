@@ -15,7 +15,6 @@
   <Button type="info" @click="submit()">保存</Button>
   <quill-editor ref="myTextEditor" v-model="content" style="height: 300px">
   </quill-editor>
-
 </div>
 </template>
 
