@@ -12,7 +12,7 @@
     @on-ok="addFenLei">
     <Input v-model="fenLei" placeholder="请输入..." style="width: 300px"></Input>
   </Modal>
-  <Button type="info" @click="submit()">保存</Button>
+  <Button type="info" @click="submit()" >保存</Button>
   <quill-editor ref="myTextEditor" v-model="content" style="height: 500px">
   </quill-editor>
 </div>

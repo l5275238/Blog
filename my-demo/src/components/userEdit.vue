@@ -69,17 +69,6 @@ export default {
         .catch(function(err){
           console.log(err);
         });
-      this.$ajax.post('/api/findText')
-        .then(function(data){
-          var obj=data.data[0];
-          console.log(data);
-          that.wenZhang=obj.text
-        })
-        .catch(function(err){
-          console.log(err);
-        });
-
-
 
     }
   },
