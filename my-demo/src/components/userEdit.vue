@@ -18,13 +18,8 @@
     <p>点击或将文件拖拽到这里上传</p>
   </div>
 </Upload>
-  <quill-editor ref="myTextEditor"
-                v-model="content"
-                >
-  </quill-editor>
-  <div v-html="wenZhang">
 
-  </div>
+
   <Button type="info" @click="goto">保存</Button>
 </div>
 </template>

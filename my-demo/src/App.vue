@@ -6,7 +6,7 @@
         <i-col :span="spanLeft" class="layout-menu-left">
           <Menu active-name="1" theme="dark" width="auto" @on-select="routeTo">
             <div class="layout-logo-left"></div>
-            <Menu-item name="/app"  >
+            <Menu-item name="/user"  >
               <Icon type="ios-navigate" :size="iconSize"></Icon>
               <span class="layout-text">个人信息</span>
             </Menu-item>

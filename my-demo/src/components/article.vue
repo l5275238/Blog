@@ -4,7 +4,7 @@
   <Table :data="tableData1" :columns="tableColumns1" stripe></Table>
   <div style="margin: 10px;overflow: hidden">
     <div style="float: right;">
-      <Page :total="length" :current="1" @on-change="changePage"></Page>
+      <Page :total="lengh" :current="page" :page-size="row" @on-change="changePage"></Page>
     </div>
   </div>
 </div>
@@ -13,10 +13,13 @@
 <script>
 export default {
   name: 'article',
+
   data () {
     return {
       tableData1:[],
-      length:'',
+      lengh:1,
+      page:1,
+      row:10,
       tableColumns1: [
         {
           title: '标题  ',
@@ -33,11 +36,11 @@ export default {
 
         {
           title: '发布时间',
-          key: 'data',
+          key: 'date',
           align: 'center',
-          render: (h, params) => {
-            return h('div', this.formatDate(this.tableData1[params.index].date));
-          }
+//          render: (h, params) => {
+//            return h('div', this.formatDate(this.tableData1[params.index].date));
+//          }
         },
         {
           title: '操作',
@@ -56,7 +59,9 @@ export default {
                 },
                 on: {
                   click: () => {
-                    this.show(params.index)
+                      var id=this.tableData1[params.index].id
+                    console.log(id);
+                      this.edit(id)
                   }
                 }
               }, '编辑'),
@@ -67,7 +72,8 @@ export default {
                 },
                 on: {
                   click: () => {
-                    this.remove(params.index)
+                    var id=this.tableData1[params.index].id
+                      this.delet(id,params.index);
                   }
                 }
               }, '删除')
@@ -83,33 +89,54 @@ export default {
   },
 
   methods: {
-    show (index) {
-      this.$Modal.info({
-        title: '用户信息',
-        content: `姓名：${this.data6[index].name}<br>年龄：${this.data6[index].age}<br>地址：${this.data6[index].address}`
-      })
+    edit(id) {
+  this.$router.push({name:'articleAdd',query:{id:id}})
     },
-    remove (index) {
-      this.data6.splice(index, 1);
+    delet (id,index) {
+      var that=this;
+      this.$ajax.get('/api/deleteArticle',{
+        params:{
+          id:id,
+          page:this.page,
+          row:this.row
+        }
+      })
+        .then(function(response){
+        that.tableData1=response.data;
+        })
+        .catch(function(err){
+          console.log(err);
+        });
     },
     goToFaBu(){
-      this.$router.push('/addArticle')
+      this.$router.push({name:'articleAdd',query:{id:''}})
     },
     fetData () {
         var that=this;
       this.$ajax.get('/api/findArticle',{
         params:{
-         page:1,
-          row:10
+         page:this.page,
+          row:this.row
         }
       })
         .then(function(response){
-         that.tableData1=response.data;
-         that.lenght=response.data.length
+          console.log(response.data);
+          that.tableData1=response.data;
+
         })
         .catch(function(err){
           console.log(err);
         });
+      this.$ajax.get('/api/findArticleLenght')
+        .then(function(response){
+var data=response.data[0]
+        that.lengh=data['count(1)']
+
+        })
+        .catch(function(err){
+          console.log(err);
+        });
+
     },
 
     formatDate (date) {
@@ -117,9 +144,21 @@ export default {
       return date;
     },
     changePage (index) {
-      // 这里直接更改了模拟的数据，真实使用场景应该从服务端获取数据
-//
-      console.log(index);
+      var that=this;
+      this.$ajax.get('/api/findArticle',{
+        params:{
+          page:index,
+          row:this.row
+        }
+      })
+        .then(function(response){
+          console.log(response.data);
+          that.tableData1=response.data;
+
+        })
+        .catch(function(err){
+          console.log(err);
+        });
     }
   }
 

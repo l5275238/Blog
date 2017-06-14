@@ -13,7 +13,7 @@
     <Input v-model="fenLei" placeholder="请输入..." style="width: 300px"></Input>
   </Modal>
   <Button type="info" @click="submit()">保存</Button>
-  <quill-editor ref="myTextEditor" v-model="content" style="height: 500px">
+  <quill-editor ref="myTextEditor" v-model="content" style="height: 300px">
   </quill-editor>
 </div>
 </template>
@@ -58,73 +58,32 @@
       },
       fetData(){
         var that=this;
-        if( that.$route.query.id){
-          this.$ajax.post('/api/findText',{
-            params:{
-              id:this.$route.query.id
-            }
-
-          })
-            .then(function(response){
-              var data=response.data[0];
-              that.content=data.text;
-              that.title=data.title;
-              that.category=data.cateId;
-              console.log(data.text);
-            })
-            .catch(function(err){
-              console.log(err);
-            });
-        }
-
         this.$ajax.post('/api/findCategory',{
 
         })
           .then(function(response){
             console.log(response.data);
             that.categoryList=response.data;
-
           })
           .catch(function(err){
             console.log(err);
           });
-
       },
       submit(){
-          if(this.$route.query.id){
-            this.$ajax.post('/api/updateArticle',{
-              params:{
-                title:this.title,
-                cateId:this.category,
-                text:this.content,
-                id:this.$route.query.id
-              }
-            })
-              .then(function(response){
-                console.log(response.data);
-//            that.categoryList=response.data;
-              })
-              .catch(function(err){
-                console.log(err);
-              });
+        this.$ajax.post('/api/addArticle',{
+          params:{
+            title:this.title,
+            cateId:this.category,
+            text:this.content,
           }
-          else {
-            this.$ajax.post('/api/addArticle',{
-              params:{
-                title:this.title,
-                cateId:this.category,
-                text:this.content,
-              }
-            })
-              .then(function(response){
-                console.log(response.data);
+        })
+          .then(function(response){
+            console.log(response.data);
 //            that.categoryList=response.data;
-              })
-              .catch(function(err){
-                console.log(err);
-              });
-          }
-
+          })
+          .catch(function(err){
+            console.log(err);
+          });
       }
 
     }
