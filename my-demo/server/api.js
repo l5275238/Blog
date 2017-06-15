@@ -20,8 +20,11 @@ function Request() {
       callback(rows);
     });
   }
-  this.updateUse=function (callback,name,text) {
-    var sql="update user  set name= '"+name+"',text='"+text+"' where id = '1'"
+
+  this.updateUse=function (callback,name,text,url) {
+    url=url.replace(/\\/g,"\\\\");
+    console.log(url);
+    var sql="update user  set name= '"+name+"',text='"+text+"',url='"+url+"' where id = '1'"
     console.log(sql);
     connection.query(sql,function (error,rows,fields) {
       if (error) throw error;
@@ -69,6 +72,16 @@ function Request() {
     var sql="SELECT * FROM category"
     sqlF(sql,callback)
 
+  }
+  //更新分类列表
+  this.updateCategory=function (callback,text,id) {
+    var sql="update category set text='"+text+"' where id="+id;
+    sqlF(sql,callback);
+  }
+  //删除分类
+  this.deleteCategory=function (callback,id) {
+    var sql="DELETE FROM category where id= "+id;
+    sqlF(sql,callback);
   }
 
 }

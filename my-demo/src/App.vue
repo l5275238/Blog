@@ -6,15 +6,15 @@
         <i-col :span="spanLeft" class="layout-menu-left">
           <Menu active-name="1" theme="dark" width="auto" @on-select="routeTo">
             <div class="layout-logo-left"></div>
-            <Menu-item name="/user"  >
+            <Menu-item name="/User"  >
               <Icon type="ios-navigate" :size="iconSize"></Icon>
               <span class="layout-text">个人信息</span>
             </Menu-item>
             <Menu-item name="/Hello">
               <Icon type="ios-keypad" :size="iconSize"></Icon>
-              <span class="layout-text">选项 2</span>
+              <span class="layout-text">归档</span>
             </Menu-item>
-            <Menu-item name="/articl">
+            <Menu-item name="/Articl">
               <Icon type="ios-analytics" :size="iconSize"></Icon>
               <span class="layout-text">发布文章</span>
             </Menu-item>

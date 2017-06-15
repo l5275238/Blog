@@ -1,5 +1,14 @@
 <template>
 <div class="hello">
+<div>
+  <div class="logo">
+    <img v-bind:src="src">
+  </div>
+
+  <Upload action="/api/profile" name="img" :on-success="success">
+    <Button type="ghost" icon="ios-cloud-upload-outline">上传头像</Button>
+  </Upload>
+</div>
   <div>
     <span>昵称</span>
     <Input v-model="name" placeholder="请输入..." style="width: 300px"></Input>
@@ -8,17 +17,6 @@
     <span>介绍</span>
     <Input v-model="text" placeholder="请输入..." style="width: 300px"></Input>
   </div>
-  <Upload
-  multiple
-  type="drag"
-  action="/api/profile"
-  name="img">
-  <div style="padding: 20px 0">
-    <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
-    <p>点击或将文件拖拽到这里上传</p>
-  </div>
-</Upload>
-
 
   <Button type="info" @click="goto">保存</Button>
 </div>
@@ -33,7 +31,8 @@ export default {
       value: '',
       text:null,
       content:'',
-      wenZhang:''
+      wenZhang:'',
+      src:''
     }
   },
   created(){
@@ -41,9 +40,11 @@ export default {
   },
   methods:{
     goto(){
-      this.$ajax.post('/api/addText',{
+      this.$ajax.get('/api/updateUsers',{
         params:{
-          text:this.content,
+          text:this.text,
+          name:this.name,
+          url:this.src
         }
       })
         .then(function(response){
@@ -53,18 +54,20 @@ export default {
           console.log(err);
         });
     },
+    success(response, file, fileList){
+      console.log(response);
+      this.src=response.path;
+    },
     fetData(){
         var that=this;
       this.$ajax.get('/api/user',{
-        params:{
-          ID:this.value
-        }
       })
         .then(function(data){
           console.log(data);
           var obj=data.data[0];
           that.text=obj.text;
           that.name=obj.name;
+          that.src=obj.url;
         })
         .catch(function(err){
           console.log(err);
@@ -102,4 +105,12 @@ li {
 a {
   color: #42b983;
 }
+  .logo{
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+  }
+  .logo img{
+    width: 100%;
+  }
 </style>

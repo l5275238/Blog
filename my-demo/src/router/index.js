@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Hello from '@/components/Hello'
-import article from '@/components/article'
-import articleAdd from '@/components/articleAdd'
-import articleEdit from '@/components/articleEdit'
-import userEdit from '@/components/userEdit'
+import Article from '@/components/Article'
+import ArticleAdd from '@/components/ArticleAdd'
+import Category from '@/components/Category'
+import UserEdit from '@/components/UserEdit'
+import File from '@/components/File'
 
 Vue.use(Router)
 
@@ -16,26 +17,31 @@ export default new Router({
       component: Hello
     },
     {
-      path:'/user',
-      name:'userEdit',
-      component:userEdit
+      path:'/User',
+      name:'UserEdit',
+      component:UserEdit
     },
     {
-      path:'/articl',
-      name:'article',
-      component:article
+      path:'/Articl',
+      name:'Article',
+      component:Article
     },
     {
-      path:'/addArticle',
-      name:'articleAdd',
-      component:articleAdd
+      path:'/AddArticle',
+      name:'ArticleAdd',
+      component:ArticleAdd
     }
     ,
     {
-      path:'/editArticle/:id',
-      name:'articleEdit',
-      component:articleEdit
+      path:'/Category',
+      name:'Category',
+      component:Category
     }
-
+      ,
+    {
+      path:'/File',
+      name:'File',
+      component:File
+    }
   ]
 })

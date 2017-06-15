@@ -1,6 +1,7 @@
 <template>
 <div class="article">
   <Button type="info" id="goToFaBu" @click="goToFaBu">发布博客</Button>
+  <Button type="info" id="goToFenLei" @click="goToFenLei">分类管理</Button>
   <Table :data="tableData1" :columns="tableColumns1" stripe></Table>
   <div style="margin: 10px;overflow: hidden">
     <div style="float: right;">
@@ -90,7 +91,7 @@ export default {
 
   methods: {
     edit(id) {
-  this.$router.push({name:'articleAdd',query:{id:id}})
+  this.$router.push({name:'ArticleAdd',query:{id:id}})
     },
     delet (id,index) {
       var that=this;
@@ -109,7 +110,10 @@ export default {
         });
     },
     goToFaBu(){
-      this.$router.push({name:'articleAdd',query:{id:''}})
+      this.$router.push({name:'ArticleAdd',query:{id:''}})
+    },
+    goToFenLei(){
+      this.$router.push('/category')
     },
     fetData () {
         var that=this;

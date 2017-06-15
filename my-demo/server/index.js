@@ -17,11 +17,12 @@ app.get('/user',function (req,res) {
 app.get('/updateUsers',function (req,res) {
     var name=req.query.name;
     var text=req.query.text;
+    var url=req.query.url;
     api.updateUse(function (rows) {
         rows.code='sucusec';
 
         res.json(rows);
-    },name,text)
+    },name,text,url)
 });
 //添加文章
 app.post('/addArticle',function (req,res) {
@@ -43,7 +44,8 @@ app.post('/findText',function (req,res) {
   },id)
 })
 app.post('/profile', upload.single('img'), function (req, res, next) {
-
+  console.log(req.file);
+  // req.file.path='../uploads/'+req.file.filename;
   // req.file 是 `avatar` 文件的信息
   res.json(req.file);
   // req.body 将具有文本域数据, 如果存在的话
@@ -97,6 +99,20 @@ app.get('/findArticleLenght',function (req,res) {
   api.findArticleLenght(function (rows) {
     res.json(rows)
   })
+})
+app.get('/updateCategory',function (req,res) {
+  var id=req.query.id;
+  var text=req.query.text;
+  api.updateCategory(function (rows) {
+    res.json(rows)
+  },text,id)
+
+})
+app.get('/deleteCategory',function (req,res) {
+  var id=req.query.id;
+  api.deleteCategory(function (rows) {
+    res.json(rows);
+  },id)
 })
 
 var server=app.listen(3000,function () {
