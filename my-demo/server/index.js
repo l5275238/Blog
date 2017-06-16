@@ -1,8 +1,10 @@
 var express = require('express');
 var api=require('./api');
-var upload=require('./upload')
-var bodyParser = require('body-parser')
+var upload=require('./upload');
+var bodyParser = require('body-parser');
 var app=express();
+app.use(express.static('./'));
+// app.use('/', express.static(__dirname + '/public'))
 // app.use(bodyParser.urlencoded({ extended: false }))
 // app.use(bodyParser.json())
 app.use(bodyParser.json({limit: '50mb'}));
@@ -31,7 +33,9 @@ app.post('/addArticle',function (req,res) {
     var title=req.body.params.title;
     var cateId=req.body.params.cateId;
     var text=req.body.params.text;
-  obj='"'+title+'",'+'"'+cateId+'",'+'"'+text+'",'+'"'+data+'"'
+    var html=req.body.params.html;
+
+  var obj="'"+title+"',"+"'"+cateId+"',"+"'"+text+"',"+"'"+data+"','"+html+"'"
   api.addArticle(function () {
     res.json('succes');
   },obj)
@@ -44,7 +48,7 @@ app.post('/findText',function (req,res) {
   },id)
 })
 app.post('/profile', upload.single('img'), function (req, res, next) {
-  console.log(req.file);
+
   // req.file.path='../uploads/'+req.file.filename;
   // req.file 是 `avatar` 文件的信息
   res.json(req.file);
@@ -70,9 +74,10 @@ app.post('/updateArticle',function (req,res) {
   var cateId=req.body.params.cateId;
   var text=req.body.params.text;
   var id=req.body.params.id;
+  var html=req.body.params.html;
   api.updateArticle(function (rows) {
     res.json(rows)
-  },id,title,text,cateId)
+  },id,title,text,cateId,html)
 })
 //删除文章
 app.get('/deleteArticle',function (req,res) {
@@ -113,6 +118,36 @@ app.get('/deleteCategory',function (req,res) {
   api.deleteCategory(function (rows) {
     res.json(rows);
   },id)
+})
+app.get('/findFile',function (req,res) {
+  api.findFile(function (rows) {
+    res.json(rows);
+  })
+})
+app.get('/addFile',function (req,res) {
+  var text=req.query.text;
+  var index=req.query.index;
+  var obj='"'+text+'",'+index;
+  api.addFile(function (rows) {
+    res.json(rows);
+  },obj)
+
+
+})
+app.get('/deletFile',function (req,res) {
+  var id=req.query.id;
+api.deletFile(function (rows) {
+  res.json(rows)
+},id)
+})
+app.get('/updateFile',function (req,res) {
+  var id =req.query.id
+  var text =req.query.text
+  var index =req.query.index
+  api.updateFile(function (rows) {
+    res.json(rows)
+  },id,text,index)
+
 })
 
 var server=app.listen(3000,function () {

@@ -1,20 +1,20 @@
 <template>
 <div class="Addarticle">
+  <h2>标题</h2>
   <Input v-model="title" type="textarea" :autosize="{minRows: 2}" placeholder="请输入..."></Input>
+  <h2>选择分类</h2>
   <Select v-model="category" style="width:200px">
     <Option v-for="item in categoryList" :value="item.id">{{ item.text }}</Option>
   </Select>
-  <Button type="primary" @click="modal6 = true">添加文章分类</Button>
 
-  <Modal
-    v-model="modal6"
-    title="添加分类"
-    @on-ok="addFenLei">
-    <Input v-model="fenLei" placeholder="请输入..." style="width: 300px"></Input>
-  </Modal>
-  <Button type="info" @click="submit()" >保存</Button>
-  <quill-editor ref="myTextEditor" v-model="content" style="height: 500px">
-  </quill-editor>
+
+  <Upload action="/api/profile" name="img" :on-success="success" id="upload">
+    <Button type="ghost" icon="ios-cloud-upload-outline">上传图片</Button>
+  </Upload>
+  <h2>发布文章</h2>
+  <div id="editor">
+  <mavon-editor  v-model="content" @save="submit"/></mavon-editor>
+  </div>
 </div>
 </template>
 
@@ -31,7 +31,7 @@
         categoryList:'',
         modal6: false,
         fenLei:'',
-        content:''
+        content:'',
       }
     },
     created(){
@@ -90,14 +90,18 @@
           });
 
       },
-      submit(){
+      success(response){
+        this.content+=('![图片](http://localhost:8000/static/'+response.filename+')')
+      },
+      submit(value ,reder){
           if(this.$route.query.id){
             this.$ajax.post('/api/updateArticle',{
               params:{
                 title:this.title,
                 cateId:this.category,
                 text:this.content,
-                id:this.$route.query.id
+                id:this.$route.query.id,
+                html:reder
               }
             })
               .then(function(response){
@@ -114,6 +118,7 @@
                 title:this.title,
                 cateId:this.category,
                 text:this.content,
+                html:reder
               }
             })
               .then(function(response){
@@ -150,4 +155,22 @@ li {
 a {
   color: #42b983;
 }
+#editor{
+  overflow: hidden;
+}
+.v-note-wrapper{
+  z-index: 1;
+}
+  #upload{
+    position: fixed;
+    right: 20px;
+    bottom: 200px;
+    z-index: 1999;
+  }
+  h2{
+    text-align: center;
+     height: 40px;
+    line-height: 40px;
+
+  }
 </style>

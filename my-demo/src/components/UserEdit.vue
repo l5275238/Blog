@@ -1,6 +1,6 @@
 <template>
 <div class="hello">
-<div>
+<div id="logo">
   <div class="logo">
     <img v-bind:src="src">
   </div>
@@ -9,16 +9,18 @@
     <Button type="ghost" icon="ios-cloud-upload-outline">上传头像</Button>
   </Upload>
 </div>
-  <div>
+  <div class="name">
     <span>昵称</span>
     <Input v-model="name" placeholder="请输入..." style="width: 300px"></Input>
   </div>
-  <div>
+  <div class="text">
     <span>介绍</span>
     <Input v-model="text" placeholder="请输入..." style="width: 300px"></Input>
-  </div>
 
-  <Button type="info" @click="goto">保存</Button>
+  </div>
+  <div class="text">
+    <Button type="info" @click="goto" id="baoCun">保存</Button>
+  </div>
 </div>
 </template>
 
@@ -108,9 +110,26 @@ a {
   .logo{
     width: 100px;
     height: 100px;
-    border: 1px solid black;
+    border: 1px solid #f2f2f2;
+    margin: 0 auto;
   }
   .logo img{
-    width: 100%;
+    width:100px;
+    text-align: center;
+  }
+  #logo{
+    text-align: center;
+  }
+  .name{
+    text-align: center;
+    padding: 10px;
+  }
+  .text{
+    text-align: center;
+    padding: 10px;
+
+  }
+  #baoCun{
+    margin: 0 auto;
   }
 </style>

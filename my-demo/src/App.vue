@@ -10,7 +10,7 @@
               <Icon type="ios-navigate" :size="iconSize"></Icon>
               <span class="layout-text">个人信息</span>
             </Menu-item>
-            <Menu-item name="/Hello">
+            <Menu-item name="/File">
               <Icon type="ios-keypad" :size="iconSize"></Icon>
               <span class="layout-text">归档</span>
             </Menu-item>

@@ -1,6 +1,16 @@
 <template>
   <div class="hello">
-    我也好
+    <div class="File">
+    <Button type="primary" @click="modal6 = true;id='',fenLei='';">添加归档</Button>
+    </div>
+    <Modal
+      v-model="modal6"
+      title="添加分类"
+      @on-ok="addFenLei">
+      <Input v-model="text" placeholder="请输入..." style="width: 300px"></Input>
+      <Slider v-model="index" :step="10"></Slider>
+    </Modal>
+    <Table :data="tableData1" :columns="tableColumns1" stripe></Table>
   </div>
 </template>
 
@@ -9,15 +19,131 @@ export default {
   name: 'hello',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',
-      activeIndex: '1',
-      activeIndex2: '1'
+      modal6:false,
+      index:30,
+      text:'',
+      id:'',
+      tableData1:[],
+      tableColumns1:[
+        {
+          title: '序号  ',
+          key: 'title',
+          align: 'center',
+          render: (h, params) => {
+            var index=[params.index];
+            return h('div',index);
+          }
+        },
+
+        {
+          title: '内容',
+          key: 'text',
+          align: 'center',
+        },
+        {
+          title: '重要度',
+          key: 'zindex',
+          align: 'center',
+        },
+        {
+          title: '操作',
+          key: 'action',
+          align: 'center',
+
+          render: (h, params) => {
+            return h('div', [
+              h('Button', {
+                props: {
+                  type: 'primary',
+                  size: 'small'
+                },
+                style: {
+                  marginRight: '5px'
+                },
+                on: {
+                  click: () => {
+                    var id=this.tableData1[params.index].id
+                    var text=this.tableData1[params.index].text;
+                    console.log(id);
+                    this.edit(id,text)
+                  }
+                }
+              }, '编辑'),
+              h('Button', {
+                props: {
+                  type: 'error',
+                  size: 'small'
+                },
+                on: {
+                  click: () => {
+                    var id=this.tableData1[params.index].id
+                    this.delet(id,params.index);
+                  }
+                }
+              }, '删除')
+            ]);
+          }
+
+        }
+
+      ]
     }
   },
+  created(){
+    this.fetData();
+  },
   methods: {
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
+      edit(id){
+        this.id=id;
+        this.modal6=true;
+      },
+    addFenLei(){
+          var that=this;
+      var url=this.id?'/api/updateFile':'/api/addFile';
+      this.$ajax.get(url,{
+        params:{
+          id:this.id,
+          text:this.text,
+          index:this.index
+        }
+      })
+        .then(function(response){
+//          that.tableData1=response.data;
+          that.fetData();
+        })
+        .catch(function(err){
+          console.log(err);
+        });
+    },
+    delet(id){
+      var that=this;
+      this.$ajax.get('/api/deletFile',{
+        params:{
+           id:id
+        }
+      })
+        .then(function(response){
+          that.fetData();
+
+        })
+        .catch(function(err){
+          console.log(err);
+        });
+    },
+    fetData(){
+        var that=this;
+      this.$ajax.get('/api/findFile',{
+
+      })
+        .then(function(response){
+
+          that.tableData1=response.data;
+        })
+        .catch(function(err){
+          console.log(err);
+        });
     }
+
   }
 }
 
@@ -41,7 +167,9 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
-
+.File{
+  height: 40px;
+}
 a {
   color: #42b983;
 }
