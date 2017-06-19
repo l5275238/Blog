@@ -3,7 +3,7 @@
     <Upload action="/api/profile" name="img" :on-success="success">
       <Button type="ghost" icon="ios-cloud-upload-outline">上传图片</Button>
     </Upload>
-    <mavon-editor @imgAdd="$imgAdd" @imgDel="$imgDel" v-model="value" @htmlcode="code" @save="save"/></mavon-editor>
+    <mavon-editor @imgAdd="$imgAdd" @imgDel="$imgDel" v-model="value" @htmlcode="code" @save="save"/>
   </div>
 </template>
 

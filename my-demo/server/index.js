@@ -4,7 +4,7 @@ var upload=require('./upload');
 var bodyParser = require('body-parser');
 var app=express();
 app.use(express.static('./'));
-// app.use('/', express.static(__dirname + '/public'))
+app.use('/', express.static(__dirname + '/public'))
 // app.use(bodyParser.urlencoded({ extended: false }))
 // app.use(bodyParser.json())
 app.use(bodyParser.json({limit: '50mb'}));
@@ -150,7 +150,7 @@ app.get('/updateFile',function (req,res) {
 
 })
 
-var server=app.listen(3000,function () {
+var server=app.listen(3030,function () {
     console.log('成功');
     console.log(api);
 
