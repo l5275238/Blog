@@ -1,6 +1,7 @@
 var express = require('express');
 var api=require('./api');
 var upload=require('./upload');
+var token=require('./token');
 var bodyParser = require('body-parser');
 var app=express();
 app.use(express.static('./'));
@@ -146,12 +147,29 @@ app.get('/updateFile',function (req,res) {
   var index =req.query.index
   api.updateFile(function (rows) {
     res.json(rows)
+
   },id,text,index)
+
+})
+app.post('/login',function (req,res) {
+  var loginName=req.body.params.loginName;
+  var password=req.body.params.password;
+  api.login(function (rows) {
+    console.log(rows);
+    console.log(rows[0].password);
+    if(rows[0].password==password){
+      var toke=token.create(loginName);
+      res.json(toke)
+    }
+    else {
+      res.json('shibai')
+    }
+
+  },loginName)
 
 })
 
 var server=app.listen(3030,function () {
     console.log('成功');
-    console.log(api);
-
+    console.log(token);
 })

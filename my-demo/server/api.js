@@ -24,9 +24,7 @@ function Request() {
 
   this.updateUse=function (callback,name,text,url) {
     url=url.replace(/\\/g,"\\\\");
-
     var sql="update user  set name= '"+name+"',text='"+text+"',url='"+url+"' where id = '1'"
-
     connection.query(sql,function (error,rows,fields) {
       if (error) throw error;
       callback(rows);
@@ -99,12 +97,15 @@ function Request() {
   this.deletFile=function (callback,id) {
     var sql="DELETE FROM Label where id= "+id;
     sqlF(sql,callback)
-
   }
   //更新归档
   this.updateFile=function (callback,id,text,index) {
     var sql="update Label set text='"+text+"',zindex="+index+" where id ="+id;
     console.log(sql);
+    sqlF(sql,callback)
+  }
+  this.login=function (callback,loginName) {
+    var sql="SELECT * FROM member where loginName='"+loginName+"'";
     sqlF(sql,callback)
   }
 

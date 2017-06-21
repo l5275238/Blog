@@ -3,14 +3,14 @@
     <div id="loginK">
       <h1>登录</h1>
       <div>
-      <span>用户名:</span><Input v-model="value4" icon="person" placeholder="请输入用户名" style="width: 200px"></Input>
+      <span>用户名:</span><Input v-model="loginName" icon="person" placeholder="请输入用户名" style="width: 200px"></Input>
       </div>
       <div>
-      <span>密码:</span><Input v-model="value4" icon="ios-locked" placeholder="请输入密码" style="width: 200px"></Input>
+      <span>密码:</span><Input v-model="password" icon="ios-locked" type="password" placeholder="请输入密码" style="width: 200px"></Input>
       </div>
       <div><Checkbox v-model="single">记住密码</Checkbox></div>
 
-      <Button type="ghost">登录</Button>
+      <Button type="ghost" @click="login">登录</Button>
 
     </div>
 
@@ -27,11 +27,32 @@
         activeIndex2: '1',
         value:'',
         img_file: {},
-        value4:'',
-        single:''
+        loginName:'',
+        password:'',
+        single:false,
       }
     },
-    methods: {}
+    methods: {
+      login(){
+          var that=this;
+        this.$ajax.post('/api/login',{
+          params:{
+            loginName:this.loginName,
+            password:this.password,
+          }
+        })
+          .then(function(response){
+            var token=response.data
+            sessionStorage.setItem("token", token);
+            that.$router.push('/home');
+          })
+          .catch(function(err){
+            console.log(err);
+          });
+      }
+      }
+
+
   }
 
 

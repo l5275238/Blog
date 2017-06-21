@@ -14,8 +14,8 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: '',
+      path: '/home',
+      name: 'home',
       component: index,
       children: [
         { path: '/User', component: UserEdit, name: 'UserEdit', hidden: true },
@@ -24,10 +24,13 @@ export default new Router({
         { path: '/Category', component: Category, name: 'Category' },
         { path: '/File', component: File, name: 'File' },
       ],
+      meta: {
+        requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+      },
       hidden: true
     },
     {
-      path:'/login',
+      path:'/',
       name:'login',
       component:login
     },
@@ -55,3 +58,4 @@ export default new Router({
     // }
   ]
 })
+
