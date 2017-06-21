@@ -11,6 +11,7 @@ import login from '@/components/login'
 
 Vue.use(Router)
 
+
 export default new Router({
   routes: [
     {
@@ -29,8 +30,17 @@ export default new Router({
       },
       hidden: true
     },
+
     {
       path:'/',
+      name:'',
+      meta: {
+        requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+      },
+      component: index,
+    },
+    {
+      path:'/login',
       name:'login',
       component:login
     },

@@ -65,22 +65,22 @@ export default {
       this.$ajax.get('/api/user',{
       })
         .then(function(data){
-          console.log(data);
+//          console.log(data);
           var obj=data.data[0];
           that.text=obj.text;
           that.name=obj.name;
           that.src=obj.url;
         })
         .catch(function(err){
-          console.log(err);
+//          console.log(err);
         });
 
     }
   },
   upload(response, file, fileList){
-    console.log(fileList);
-    console.log(file);
-    console.log(response);
+//    console.log(fileList);
+//    console.log(file);
+//    console.log(response);
   }
 
 

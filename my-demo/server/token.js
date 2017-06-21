@@ -9,16 +9,16 @@ function Token() {
 
      var content ={loginName:name}
       var token= jwt.sign(content, secretOrPrivateKey, {
-        expiresIn: 60 // 24小时过期
+        expiresIn: 60*60*24 // 24小时过期
       });
       return token;
    }
-   this.verify=function (token) {
-     jwt.verify(token, secretOrPrivateKey, function (err, decode) {
+   this.verify=function (name,req,res,next) {
+     jwt.verify(name, secretOrPrivateKey, function (err, decode) {
        if (err) {  //  时间失效的时候/ 伪造的token
-         console.log(err);
+          res.json({code:401,data:'你没有权限'})
        } else {
-         console.log(decode);
+         next();
        }
      })
    }
