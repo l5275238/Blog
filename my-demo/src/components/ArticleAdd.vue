@@ -13,7 +13,7 @@
   </Upload>
   <h2>发布文章</h2>
   <div id="editor">
-  <mavon-editor  v-model="content" @save="submit"/></mavon-editor>
+  <mavon-editor  v-model="content"   @save="submit" @imgAdd="imgAdd"/></mavon-editor>
   </div>
 </div>
 </template>
@@ -32,6 +32,7 @@
         modal6: false,
         fenLei:'',
         content:'',
+
       }
     },
     created(){
@@ -92,6 +93,28 @@
       },
       success(response){
         this.content+=('![图片](http://localhost:8000/static/'+response.filename+')')
+      },
+      imgAdd(fileName,file){
+        console.log(file);
+        var oMyForm = new FormData();
+        oMyForm.append("img", file);
+
+        console.log(oMyForm);
+
+        this.$ajax({
+          url: '/api/profile',
+          method: 'post',
+          data: oMyForm,
+          headers: { 'Content-Type': 'multipart/form-data' },
+        })
+          .then(function(response){
+            console.log(response.data);
+
+          })
+          .catch(function(err){
+            console.log(err);
+          });
+
       },
       submit(value ,reder){
           if(this.$route.query.id){

@@ -10,18 +10,18 @@ app.use('/', express.static(__dirname + '/public'))
 // app.use(bodyParser.json())
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-app.use('/',function (req,res,next){
-if(req.url=='/login'){
-  next()
-}
-else {
-  var name=req.headers.authorization;
-  console.log(name);
-  token.verify(name,req,res,next);
-}
-
-
-})
+// app.use('/',function (req,res,next){
+// if(req.url=='/login'){
+//   next()
+// }
+// else {
+//   var name=req.headers.authorization;
+//   console.log(name);
+//   token.verify(name,req,res,next);
+// }
+//
+//
+// })
 app.get('/user',function (req,res) {
     api.findUse(function (rows) {
 

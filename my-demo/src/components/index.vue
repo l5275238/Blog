@@ -18,6 +18,10 @@
               <Icon type="ios-analytics" :size="iconSize"></Icon>
               <span class="layout-text">发布文章</span>
             </Menu-item>
+            <Menu-item name="/Artic">
+              <Icon type="ios-analytics" :size="iconSize"></Icon>
+              <span class="layout-text">账户管理</span>
+            </Menu-item>
           </Menu>
         </i-col>
         <i-col :span="spanRight">
