@@ -1,12 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
-import index from '@/components/index'
-import Article from '@/components/Article'
-import ArticleAdd from '@/components/ArticleAdd'
-import Category from '@/components/Category'
-import UserEdit from '@/components/UserEdit'
-import File from '@/components/File'
 import login from '@/components/login'
 
 Vue.use(Router)
@@ -17,13 +10,13 @@ export default new Router({
     {
       path: '/home',
       name: 'home',
-      component: index,
+      component: resolve => require(['../components/index.vue'], resolve),
       children: [
-        { path: '/User', component: UserEdit, name: 'UserEdit', hidden: true },
-        { path: '/Articl', component: Article, name: 'Article' },
-        { path: '/AddArticle', component: ArticleAdd, name: 'ArticleAdd' },
-        { path: '/Category', component: Category, name: 'Category' },
-        { path: '/File', component: File, name: 'File' },
+        { path: '/User', component: resolve => require(['../components/UserEdit.vue'], resolve), name: 'UserEdit', hidden: true },
+        { path: '/Articl', component: resolve => require(['../components/Article.vue'], resolve), name: 'Article' },
+        { path: '/AddArticle', component: resolve => require(['../components/ArticleAdd.vue'], resolve), name: 'ArticleAdd' },
+        { path: '/Category', component: resolve => require(['../components/Category.vue'],resolve), name: 'Category' },
+        { path: '/File', component: resolve => require(['../components/File.vue'],resolve), name: 'File' },
       ],
       meta: {
         requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
@@ -37,12 +30,12 @@ export default new Router({
       meta: {
         requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
       },
-      component: index,
+      component: resolve => require(['../components/index.vue'], resolve),
     },
     {
       path:'/login',
       name:'login',
-      component:login
+      component:resolve => require(['../components/login.vue'], resolve)
     },
     // {
     //   path:'/Articl',

@@ -6,11 +6,6 @@
   <Select v-model="category" style="width:200px">
     <Option v-for="item in categoryList" :value="item.id">{{ item.text }}</Option>
   </Select>
-
-
-  <Upload action="/api/profile" name="img" :on-success="success" id="upload">
-    <Button type="ghost" icon="ios-cloud-upload-outline">上传图片</Button>
-  </Upload>
   <h2>发布文章</h2>
   <div id="editor">
   <mavon-editor  v-model="content"   @save="submit" @imgAdd="imgAdd"/></mavon-editor>
@@ -19,6 +14,9 @@
 </template>
 
 <script>
+  import { mavonEditor } from 'mavon-editor'
+  import 'mavon-editor/dist/css/index.css'
+
   export default {
     name: 'Addarticle',
     data () {
@@ -34,6 +32,10 @@
         content:'',
 
       }
+    },
+    components: {
+      mavonEditor
+      // or 'mavon-editor': mavonEditor
     },
     created(){
       this.fetData();
@@ -91,15 +93,11 @@
           });
 
       },
-      success(response){
-        this.content+=('![图片](http://localhost:8000/static/'+response.filename+')')
-      },
       imgAdd(fileName,file){
         console.log(file);
+        var that=this;
         var oMyForm = new FormData();
         oMyForm.append("img", file);
-
-        console.log(oMyForm);
 
         this.$ajax({
           url: '/api/profile',
@@ -108,7 +106,7 @@
           headers: { 'Content-Type': 'multipart/form-data' },
         })
           .then(function(response){
-            console.log(response.data);
+            that.content+=('![图片](/static/'+response.data.filename+')')
 
           })
           .catch(function(err){
