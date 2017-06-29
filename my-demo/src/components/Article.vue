@@ -2,7 +2,6 @@
 <div class="article">
   <div class="botton">
   <Button type="info" id="goToFaBu" @click="goToFaBu">发布博客</Button>
-  <Button type="info" id="goToFenLei" @click="goToFenLei">分类管理</Button>
   </div>
   <Table :data="tableData1" :columns="tableColumns1" stripe></Table>
   <div style="margin: 10px;overflow: hidden">
@@ -113,9 +112,6 @@ export default {
     },
     goToFaBu(){
       this.$router.push({name:'ArticleAdd',query:{id:''}})
-    },
-    goToFenLei(){
-      this.$router.push('/category')
     },
     fetData () {
         var that=this;

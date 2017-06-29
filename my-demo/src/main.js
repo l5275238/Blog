@@ -48,7 +48,7 @@ axios.interceptors.request.use(function (config) {
 axios.interceptors.response.use(function (response) {
   // Do something with response data
   // console.log(response);
-  console.log(response);
+
   switch (response.data.code) {
       case 401:
         // 返回 401 清除token信息并跳转到登录页面

@@ -57,7 +57,7 @@ export default {
         });
     },
     success(response, file, fileList){
-//      console.log(response);
+      console.log(response);
       this.src=response.path;
     },
     fetData(){
@@ -65,7 +65,7 @@ export default {
       this.$ajax.get('/api/user',{
       })
         .then(function(data){
-//          console.log(data);
+          console.log(data);
           var obj=data.data[0];
           that.text=obj.text;
           that.name=obj.name;

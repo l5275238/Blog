@@ -17,6 +17,7 @@ export default new Router({
         { path: '/AddArticle', component: resolve => require(['../components/ArticleAdd.vue'], resolve), name: 'ArticleAdd' },
         { path: '/Category', component: resolve => require(['../components/Category.vue'],resolve), name: 'Category' },
         { path: '/File', component: resolve => require(['../components/File.vue'],resolve), name: 'File' },
+        { path: '/LoginEdit', component: resolve => require(['../components/loginEdit.vue'],resolve), name: 'File' },
       ],
       meta: {
         requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的

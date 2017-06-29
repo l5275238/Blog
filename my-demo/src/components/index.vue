@@ -14,14 +14,15 @@
               <Icon type="ios-keypad" :size="iconSize"></Icon>
               <span class="layout-text">归档</span>
             </Menu-item>
+            <Menu-item name="/Category">
+              <Icon type="ios-analytics" :size="iconSize"></Icon>
+              <span class="layout-text">文章分类</span>
+            </Menu-item>
             <Menu-item name="/Articl">
               <Icon type="ios-analytics" :size="iconSize"></Icon>
               <span class="layout-text">发布文章</span>
             </Menu-item>
-            <Menu-item name="/Artic">
-              <Icon type="ios-analytics" :size="iconSize"></Icon>
-              <span class="layout-text">账户管理</span>
-            </Menu-item>
+
           </Menu>
         </i-col>
         <i-col :span="spanRight">
