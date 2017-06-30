@@ -1,6 +1,7 @@
 /**
  * Created by T-Mac on 2017/6/29.
  */
+var api=require('../api')
 function Api(connection,sqlF) {
 //获取归档列表
   this.findFile=function (callback) {
@@ -23,4 +24,4 @@ function Api(connection,sqlF) {
     this.sqlF(sql,callback)
   }
 }
-module.exports =  Api;
+module.exports = new Api();

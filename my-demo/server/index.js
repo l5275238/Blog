@@ -20,6 +20,8 @@ else {
   console.log(name);
   token.verify(name,req,res,next);
 }
+
+
 })
 
 

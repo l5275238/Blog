@@ -1,6 +1,7 @@
 /**
  * Created by T-Mac on 2017/6/29.
  */
+var api=require('../api')
 function Api(connection,sqlF) {
   this.findUse=function (callback) {
     var sql='SELECT * FROM user';
@@ -14,4 +15,4 @@ function Api(connection,sqlF) {
   }
 }
 
-module.exports =  Api;
+module.exports =new Api();

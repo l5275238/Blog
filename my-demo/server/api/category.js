@@ -1,6 +1,7 @@
 /**
  * Created by T-Mac on 2017/6/29.
  */
+var api=require('../api')
 function Api() {
   //添加分类;
   this.addCategory=function (callback,text) {
@@ -24,4 +25,4 @@ function Api() {
     this.sqlF(sql,callback);
   }
 }
-module.exports =  Api;
+module.exports =  new Api();

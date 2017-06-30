@@ -10,17 +10,12 @@ var connection =mysql.createConnection({
   database:'blogs'
 
 })
-
 function Request() {
   this.sqlF=function sqlF(sql,callback) {
     connection.query(sql, function (error,rows,fields) {
       callback(error,rows);
     });
   }
-  article.call(this);
-  category.call(this);
-  user.call(this);
-  login.call(this);
 
 }
 module.exports = new Request();
