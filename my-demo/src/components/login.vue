@@ -42,8 +42,8 @@
           }
         })
           .then(function(response){
-            var token=response.data
-            sessionStorage.setItem("token", token);
+            var token=response
+            sessionStorage.setItem("token", response);
             that.$router.push('/home');
           })
           .catch(function(err){

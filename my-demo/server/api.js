@@ -1,9 +1,5 @@
 var mysql= require('mysql');
-var article=require('./api/article')
-var category=require('./api/category')
-var user=require('./api/user')
-var login=require('./api/login')
-var connection =mysql.createConnection({
+var pool =mysql.createPool({
   host :'106.14.153.16',
   user:'root',
   password:'123456',
@@ -11,10 +7,20 @@ var connection =mysql.createConnection({
 
 })
 function Request() {
-  this.sqlF=function sqlF(sql,callback) {
-    connection.query(sql, function (error,rows,fields) {
-      callback(error,rows);
-    });
+  //使用连接池
+  this.sqlF=function(sql,callback) {
+    pool.getConnection(function(err,connection){
+      if(err){
+        console.log('与mysql数据库建立连接失败');
+        // callback(err,null)
+      }else{
+        console.log('与mysql数据库建立连接成功');
+        connection.query(sql,function(err,rows){
+          callback(err,rows);
+          connection.end();
+        })
+      }
+    })
   }
 
 }
