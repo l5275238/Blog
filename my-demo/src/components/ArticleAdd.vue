@@ -106,7 +106,8 @@
           headers: { 'Content-Type': 'multipart/form-data' },
         })
           .then(function(response){
-            that.content+=('![图片](/static/'+response.data.filename+')')
+            console.log(response);
+            that.content+=('![图片](/static/'+response.filename+')')
 
           })
           .catch(function(err){
