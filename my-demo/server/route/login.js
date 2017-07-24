@@ -7,7 +7,6 @@ var route=require('express').Router();
 var bodyParser = require('body-parser');
 route.use(bodyParser.json({limit: '50mb'}));
 route.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-
   route.post('/login',function (req,res) {
     var loginName=req.body.params.loginName;
     var password=req.body.params.password;
