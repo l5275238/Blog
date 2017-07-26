@@ -1,12 +1,12 @@
 <template>
 <div class="article">
-  <div class="botton">
-  <Button type="info" id="goToFaBu" @click="goToFaBu">发布博客</Button>
+  <div class="botton" style="padding-right: 200px">
+  <Button  type="info" id="goToFaBu" @click="goToFaBu">发布博客</Button>
   </div>
   <Table :data="tableData1" :columns="tableColumns1" stripe></Table>
-  <div style="margin: 10px;overflow: hidden">
+  <div style="margin: 10px;overflow: hidden;padding-right: 200px">
     <div style="float: right;">
-      <Page :total="lengh" :current="page" :page-size="row" @on-change="changePage"></Page>
+      <Page :total="lengh" :current="page" :page-size="row" @on-change="changePage" ></Page>
     </div>
   </div>
 </div>
@@ -192,4 +192,7 @@ a {
   #goToFaBu{
     float: right;
   }
+.ivu-table td{
+  background: red;
+}
 </style>

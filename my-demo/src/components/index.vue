@@ -4,10 +4,8 @@
 
     </canvas>
     <div id="ivew">
-        <div class="ivew">个人信息</div>
-        <div class="ivew">标签</div>
-        <div class="ivew">文章分类</div>
-        <div class="ivew">文章管理</div>
+        <div class="ivew"v-for="itme in itmes" @click="routeTo(itme.url)">{{itme.name}}</div>
+
     </div>
     <div id="view"><router-view></router-view></div></div>
     <!--<div class="layout" :class="{'layout-hide-text': spanLeft < 5}">-->
@@ -69,24 +67,21 @@ export default {
     return {
       spanLeft: 5,
       spanRight: 19,
-      text:''
+      text:'',
+      itmes:[
+        {name:'个人信息',url:'/User'},
+        {name:'个人标签',url:'/File'},
+        {name:'文章分类',url:'/Category'},
+        {name:'发布文章',url:'/Articl'}
+      ]
+
+
     }
   },
   computed: {
-    iconSize () {
-      return this.spanLeft === 5 ? 14 : 24;
-    }
+
   },
   methods: {
-    toggleClick () {
-      if (this.spanLeft === 5) {
-        this.spanLeft = 2;
-        this.spanRight = 22;
-      } else {
-        this.spanLeft = 5;
-        this.spanRight = 19;
-      }
-    },
     routeTo (name){
       this.$router.push(name);
       this.text=name;
@@ -108,8 +103,8 @@ export default {
       //Y轴
       var speedY=1;
       //小球数量
-      var num=300;
-      线条半径
+      var num=500;
+      //线条半径
       var r=100;
       //小球的数组
       this.round=[];
@@ -117,6 +112,13 @@ export default {
       this.height=height;
       var lineX=width/2;
       var lineY=height/2;
+
+      this.setLineX=function (x,y) {
+       speedX=x>lineX?speedX:-speedX;
+       speedY=y>lineY?speedY:-speedY;
+
+
+      }
       //移动线条的位置
       this.move=function () {
         if(lineX<0||lineX>this.width-200){
@@ -138,7 +140,7 @@ export default {
             if((rv1.x - rv2.x) <r && (rv1.y - rv2.y) < r && (rv1.x - rv2.x) > -r && (rv1.y - rv2.y) > - r){
               if((rv1.x - lineX) < r && (rv1.y - lineY <  r && (rv1.x - lineX) > -  r && (rv1.y - lineY) > - r)){
                 ctx.beginPath();
-                ctx.strokeStyle = color();
+                ctx.strokeStyle = color(100);
                 ctx.moveTo(rv1.x, rv1.y);
                 ctx.lineTo(rv2.x, rv2.y);
                 ctx.stroke();
@@ -185,10 +187,11 @@ export default {
       }
     }
     //随机颜色
-    function color() {
-      var g =  Math.floor(225 * Math.random());
-      var b =  Math.floor(225 * Math.random());
-      var a =  Math.floor(225 * Math.random());
+    function color(minNum) {
+        var min =minNum?minNum:0;
+      var g =  Math.floor(225 * Math.random()+min);
+      var b =  Math.floor(225 * Math.random()+min);
+      var a =  Math.floor(225 * Math.random()+min);
       var aplin = 1 * Math.random();
       return 'rgba(' + g + ',' + b + ',' + a + ',' + aplin + ')'
     }
@@ -200,7 +203,7 @@ export default {
       this.aplin = 0.8;
       var  speedX =isFu? 1 * 1 * Math.random():-1 * 1 * Math.random();
       var  speedY =isFu? 1 * 1 * Math.random():-1 * 1 * Math.random();
-      this.color = color();
+      this.color = color(50);
 
       this.draw = function () {
         ctx.beginPath();
@@ -231,6 +234,10 @@ export default {
       pannel.loopDraw()
 
       requestAnimationFrame(go);
+    }
+    var body=document.querySelector('body')
+    body.onmousemove=function (e) {
+     pannel.setLineX(e.clientX,e.clientY)
     }
     requestAnimationFrame(go);
   }
@@ -314,22 +321,24 @@ export default {
     z-index: 9999;
   }
   .ivew{
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    background: #ffffff;
+    color: #ffffff;
     text-align: center;
-    line-height: 100px;
+    border: 1px solid #ffffff;
+    line-height: 120px;
     margin:50px;
-    font-size: 14px;
+    font-size: 20px;
   }
   .ivew:hover{
     transform: translateX(10px);
-    width: 120px;
-    height: 120px;
-    line-height: 120px;
-    font-size:20px ;
+    width: 140px;
+    height: 140px;
+    line-height: 140px;
+    font-size:25px ;
     transition: all 0.5s;
+    border: 1px solid #ffffff;
   }
   #view{
     position: absolute;
@@ -337,5 +346,47 @@ export default {
     height: 100%;
     z-index: 999;
     padding-left: 200px;
+    vertical-align: middle;
+    padding-top: 200px;
+    color: #ffffff;
+
+  }
+  .ivu-table{
+    background: none;
+    color: #ffffff;
+    border:none;
+    font-size: 20px;
+  }
+  .ivu-table-wrapper{
+    border: none;
+  }
+  .ivu-table th {
+    color: #ffffff;
+    background: transparent!important;
+    border: none;
+  }
+  .ivu-table td{
+    background: none;
+  }
+  .ivu-table-stripe .ivu-table-body tr:nth-child(2n) td, .ivu-table-stripe .ivu-table-fixed-body tr:nth-child(2n) td{
+    background: none;
+  }
+  .ivu-table-stripe .ivu-table-body tr:nth-child(2n) td, .ivu-table-stripe .ivu-table-fixed-body tr:nth-child(2n) td:hover{
+    background: none;
+  }
+  .ivu-table td, .ivu-table th{
+    border: none;
+  }
+  tr.ivu-table-row-hover td{
+    background: none;
+  }
+  .ivu-table:after{
+    display: none;
+  }
+  .ivu-table:before{
+    display: none;
+  }
+  .th .ivu-table-cell{
+    font-size: 20px;
   }
 </style>

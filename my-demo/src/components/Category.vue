@@ -1,7 +1,8 @@
 <template>
 <div class="Addarticle">
-
+  <div style="text-align: right;padding-right: 200px">
   <Button type="primary" @click="modal6 = true;cateId='',fenLei='';">添加文章分类</Button>
+  </div>
   <Modal
     v-model="modal6"
     title="添加分类"

@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <div class="File">
-    <Button type="primary" @click="modal6 = true;id='',fenLei='';">添加归档</Button>
+    <Button id="add" type="primary" @click="modal6 = true;id='',fenLei='';">添加归档</Button>
     </div>
     <Modal
       v-model="modal6"
@@ -10,7 +10,7 @@
       <Input v-model="text" placeholder="请输入..." style="width: 300px"></Input>
       <Slider v-model="index" :step="10"></Slider>
     </Modal>
-    <Table :data="tableData1" :columns="tableColumns1" stripe></Table>
+    <Table :row-class-name="rowClassName" :data="tableData1" :columns="tableColumns1" style="background: none" stripe></Table>
   </div>
 </template>
 
@@ -97,6 +97,11 @@ export default {
         this.id=id;
         this.modal6=true;
       },
+    rowClassName (row, index) {
+
+        return 'demo-table-info-row';
+
+    },
     addFenLei(){
           var that=this;
       var url=this.id?'/api/updateFile':'/api/addFile';
@@ -153,7 +158,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 h1, h2 {
   font-weight: normal;
 }
@@ -173,4 +178,14 @@ li {
 a {
   color: #42b983;
 }
+#add{
+  float: right;
+  margin-right: 50px;
+}
+/*.ivu-table .demo-table-info-row td{*/
+  /*background-color: #2db7f5;*/
+  /*color: #fff;*/
+/*}*/
+
+
 </style>
