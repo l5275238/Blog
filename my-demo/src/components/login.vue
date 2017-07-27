@@ -63,7 +63,6 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   #login{
-    background: #fff5e6;
     height: 100%;
     width: 100%;
     position: relative;

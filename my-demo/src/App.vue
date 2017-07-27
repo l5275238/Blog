@@ -1,9 +1,13 @@
 <template>
   <div id="app">
+    <transition
+      name="bounce"
+    >
+    <router-view>
+      WELCOME
+    </router-view>
 
-    <router-view></router-view>
-
-
+    </transition>
 
 
   </div>
@@ -48,6 +52,16 @@ export default {
     height: 100%;
     position: absolute;
     width: 100%;
+    background: #FFF5E6;
+  }
+  .bounce-enter-active {
+    transition: all .5s
+  }
+
+  .bounce-enter, .bounce-leave-active {
+    opacity: 0;
+    transform:  rotateZ(300deg) translateY(3000px);
+    /*animation: bounce-in .5s reverse;*/
   }
 
 </style>
