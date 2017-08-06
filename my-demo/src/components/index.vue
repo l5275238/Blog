@@ -108,7 +108,7 @@
         //Y轴
         var speedY = 1;
         //小球数量
-        var num = 500;
+        var num = 300;
         //线条半径
         var r = 100;
         //小球的数组

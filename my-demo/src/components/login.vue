@@ -66,6 +66,7 @@
     height: 100%;
     width: 100%;
     position: relative;
+    background: #FFF5E6;
   }
   #loginK{
     width: 400px;

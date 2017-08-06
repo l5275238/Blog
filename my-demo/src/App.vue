@@ -9,7 +9,6 @@
 
     </transition>
 
-
   </div>
 </template>
 
@@ -53,15 +52,17 @@ export default {
     height: 100%;
     position: absolute;
     width: 100%;
-    background: #FFF5E6;
+    background: #000;
+    overflow: hidden;
+    transition: all 3s
   }
   .bounce-enter-active {
-    transition: all .5s
+    transition: all 3s
   }
 
   .bounce-enter, .bounce-leave-active {
     opacity: 0;
-    transform:  rotateZ(300deg) translateY(3000px);
+    transform:  translateX(100%);
     /*animation: bounce-in .5s reverse;*/
   }
 
