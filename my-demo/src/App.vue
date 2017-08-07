@@ -1,14 +1,8 @@
 <template>
   <div id="app">
-    <transition
-      name="bounce"
-    >
     <router-view>
       WELCOME
     </router-view>
-
-    </transition>
-
   </div>
 </template>
 
@@ -20,13 +14,27 @@ export default {
     return {
       spanLeft: 5,
       spanRight: 19,
-      text:''
+      text:'',
     }
   },
-  computed: {
-    iconSize () {
-      return this.spanLeft === 5 ? 14 : 24;
-    }
+
+  beforeCreate:function () {
+
+  },
+  created:function () {
+
+
+  },
+  beforeMount:function () {
+    var div=document.getElementById('app');
+    div.style.transform='translateX(100%)';
+  },
+  mounted:function () {
+    var div=document.getElementById('wel');
+    var app1=document.getElementById('app');
+    div.style.transform='translateX(-100%)';
+    app1.style.transform='translateX(0%)';
+
   },
   methods: {
     toggleClick () {
@@ -42,28 +50,26 @@ export default {
       this.$router.push(name);
       this.text=name;
     }
-  }
+  },
+
 }
 </script>、
 
 
 <style>
   #app{
-    height: 100%;
-    position: absolute;
-    width: 100%;
-    background: #000;
+    transition: all 1s;
     overflow: hidden;
-    transition: all 3s
   }
   .bounce-enter-active {
-    transition: all 3s
+    transition: all 10s
   }
 
   .bounce-enter, .bounce-leave-active {
     opacity: 0;
-    transform:  translateX(100%);
+    transform: scale(0.5) rotateY(100deg);
     /*animation: bounce-in .5s reverse;*/
   }
+
 
 </style>

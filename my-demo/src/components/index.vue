@@ -17,51 +17,7 @@
       </transition>
     </div>
   </div>
-  <!--<div class="layout" :class="{'layout-hide-text': spanLeft < 5}">-->
-  <!--<Row type="flex">-->
-  <!--<i-col :span="spanLeft" class="layout-menu-left">-->
-  <!--<Menu active-name="1" theme="dark" width="auto" @on-select="routeTo">-->
-  <!--<div class="layout-logo-left"></div>-->
-  <!--<Menu-item name="/User"  >-->
-  <!--<Icon type="ios-navigate" :size="iconSize"></Icon>-->
-  <!--<span class="layout-text">个人信息</span>-->
-  <!--</Menu-item>-->
-  <!--<Menu-item name="/File">-->
-  <!--<Icon type="ios-keypad" :size="iconSize"></Icon>-->
-  <!--<span class="layout-text">归档</span>-->
-  <!--</Menu-item>-->
-  <!--<Menu-item name="/Category">-->
-  <!--<Icon type="ios-analytics" :size="iconSize"></Icon>-->
-  <!--<span class="layout-text">文章分类</span>-->
-  <!--</Menu-item>-->
-  <!--<Menu-item name="/Articl">-->
-  <!--<Icon type="ios-analytics" :size="iconSize"></Icon>-->
-  <!--<span class="layout-text">发布文章</span>-->
-  <!--</Menu-item>-->
 
-  <!--</Menu>-->
-  <!--</i-col>-->
-  <!--<i-col :span="spanRight">-->
-  <!--<div class="layout-header">-->
-  <!--<i-button type="text" @click="toggleClick">-->
-  <!--<Icon type="navicon" size="32"></Icon>-->
-  <!--</i-button>-->
-  <!--</div>-->
-  <!--<div class="layout-breadcrumb">-->
-  <!--<Breadcrumb>-->
-  <!--<Breadcrumb-item href="#">首页</Breadcrumb-item>-->
-  <!--<Breadcrumb-item href="#"></Breadcrumb-item>-->
-  <!--</Breadcrumb>-->
-  <!--</div>-->
-  <!--<div class="layout-content">-->
-  <!--<div class="layout-content-main">  <router-view></router-view></div>-->
-  <!--</div>-->
-  <!--<div class="layout-copy">-->
-  <!--2011-2016 &copy; TalkingData-->
-  <!--</div>-->
-  <!--</i-col>-->
-  <!--</Row>-->
-  <!--</div>-->
 
 
 </template>
