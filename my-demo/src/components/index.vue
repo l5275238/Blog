@@ -55,18 +55,20 @@
       var ctx = canvas.getContext('2d')
       canvas.width = width;
       canvas.height = height;
-      var pannel = new Panel(width, height, ctx);
+      var pannel = new Panel(width, height, ctx,'blue','#fff');
 
       //画布和线
-      function Panel(width, height, ctx) {
+      function Panel(width, height, ctx,color1,color2) {
         //速度X轴
         var speedX = 1;
         //Y轴
         var speedY = 1;
         //小球数量
-        var num = 300;
+        var num = 100;
         //线条半径
-        var r = 100;
+        var r = 200;
+        var color1=color1?color1:'#000'
+        var color2=color2?color2:'#002'
         //小球的数组
         this.round = [];
         this.width = width;
@@ -99,14 +101,14 @@
               var rv1 = this.round[i];
               var rv2 = this.round[j];
               if ((rv1.x - rv2.x) < r && (rv1.y - rv2.y) < r && (rv1.x - rv2.x) > -r && (rv1.y - rv2.y) > -r) {
-                if ((rv1.x - lineX) < r && (rv1.y - lineY < r && (rv1.x - lineX) > -r && (rv1.y - lineY) > -r)) {
+
                   ctx.beginPath();
-                  ctx.strokeStyle = color(100);
+                  ctx.strokeStyle = 'rgba(234,236,237,0.1)';
                   ctx.moveTo(rv1.x, rv1.y);
                   ctx.lineTo(rv2.x, rv2.y);
                   ctx.stroke();
                   ctx.closePath();
-                }
+
               }
             }
           }
@@ -116,9 +118,10 @@
           ctx.clearRect(0, 0, this, width, this.height);
           ctx.fillRect(0, 0, this, width, this.height);
           ctx.beginPath();
+
           var lingrad = ctx.createLinearGradient(0, -this.width, 0, this.height);
-          lingrad.addColorStop(0, '#000');
-          lingrad.addColorStop(1, '#002');
+          lingrad.addColorStop(0,color1);
+          lingrad.addColorStop(1, color2);
           ctx.fillStyle = lingrad;
           ctx.fillRect(0, 0, this.width, this.height);
         }
@@ -154,7 +157,7 @@
         var g = Math.floor(225 * Math.random() + min);
         var b = Math.floor(225 * Math.random() + min);
         var a = Math.floor(225 * Math.random() + min);
-        var aplin = 1 * Math.random();
+        var aplin = 1 * Math.random()*0.5;
         return 'rgba(' + g + ',' + b + ',' + a + ',' + aplin + ')'
       }
 
@@ -162,11 +165,11 @@
       function Circle(x, y, ctx, isFu) {
         this.x = x;
         this.y = y;
-        this.r = 3 * Math.random();
+        this.r = 10* Math.random()+5;
         this.aplin = 0.8;
         var speedX = isFu ? 1 * 1 * Math.random() : -1 * 1 * Math.random();
         var speedY = isFu ? 1 * 1 * Math.random() : -1 * 1 * Math.random();
-        this.color = color(50);
+        this.color = color(255);
 
         this.draw = function () {
           ctx.beginPath();
