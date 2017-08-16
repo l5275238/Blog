@@ -12,7 +12,7 @@ export default new Router({
       name: 'home',
       component: resolve => require(['../components/index.vue'], resolve),
       children: [
-        { path: '/', component: resolve => require(['../components/welcom.vue'], resolve), name: 'UserEdit', hidden: true },
+        // { path: '/', component: resolve => require(['../components/welcom.vue'], resolve), name: 'UserEdit', hidden: true },
         { path: '/User', component: resolve => require(['../components/UserEdit.vue'], resolve), name: 'UserEdit', hidden: true },
         { path: '/Articl', component: resolve => require(['../components/Article.vue'], resolve), name: 'Article' },
         { path: '/AddArticle', component: resolve => require(['../components/ArticleAdd.vue'], resolve), name: 'ArticleAdd' },
