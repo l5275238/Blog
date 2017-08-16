@@ -7,9 +7,6 @@ import 'iview/dist/styles/iview.css';
 import App from './App'
 import router from './router'
 import store from './store'
-import $ from 'jquery'
-import 'bootstrap/js/bootstrap.min.js'
-import 'bootstrap/css/bootstrap.min.css'
 
 Vue.use(iView)
 
