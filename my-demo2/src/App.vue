@@ -40,11 +40,11 @@
 
     </div>
     <div class="col-md-9">
-
+      <router-view></router-view>
     </div>
 
   </div>
-    <router-view></router-view>
+
   </div>
 </template>
 
@@ -81,7 +81,15 @@ export default {
 
   .list-group-item{
     border: none;
+    position: relative;
+    text-align: left;
+    padding-left: 60px;
   }
+  .list-group-item>img{
+  position: absolute;
+  left: 30px;
+  top:12px
+}
 .nav-content{
   background: #ffffff;
   padding: 20px;

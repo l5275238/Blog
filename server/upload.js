@@ -1,5 +1,5 @@
 var multer  = require('multer')
-var uploadFolder = '../static/';
+var uploadFolder = './img';
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, uploadFolder);    // 保存的路径，备注：需要自己创建
