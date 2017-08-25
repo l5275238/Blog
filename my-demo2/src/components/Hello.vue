@@ -1,6 +1,13 @@
 <template>
 <div id="heleo">
-  asd
+   <div>
+     <h3 class="title">你好</h3>
+     <div class="fenLei">分类呀</div>
+     <div class="content">
+       你好呀啊啊啊啊啊啊啊啊啊啊啊啊啊
+     </div>
+     <div class="time">2017.6.8</div>
+   </div>
 </div>
 </template>
 
@@ -34,4 +41,10 @@ li {
 a {
   color: #42b983;
 }
+  .time{
+    text-align: right;
+  }
+  .fenLei{
+    text-align: right;
+  }
 </style>
