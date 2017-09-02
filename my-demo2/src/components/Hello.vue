@@ -1,6 +1,6 @@
 <template>
 <div id="heleo">
-   <div>
+   <div class="wenZhang">
      <h3 class="title">你好</h3>
      <div class="fenLei">分类呀</div>
      <div class="content">
@@ -24,6 +24,18 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  *{
+    padding: 0;
+    margin: 0;
+  }
+#heleo{
+  padding: 0;
+  margin: 0;
+}
+.wenZhang{
+  background: #ffffff;
+  padding: 10px 20px;
+}
 h1, h2 {
   font-weight: normal;
 }

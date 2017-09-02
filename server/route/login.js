@@ -28,9 +28,10 @@ route.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
       next()
     }
     else {
-      var name=req.headers.authorization;
-      console.log(name);
-      token.verify(name,req,res,next);
+        next()
+      // var name=req.headers.authorization;
+      // console.log(name);
+      // token.verify(name,req,res,next);
     }
 
 
