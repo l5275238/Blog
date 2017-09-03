@@ -23,5 +23,10 @@ function Api() {
     var sql="update Label set text='"+text+"',zindex="+index+" where id ="+id;
     api.sqlF(sql,callback)
   }
+    //获取归档数量
+    this.findFileLength=function (callback) {
+        var sql='select count(1) from Label'
+        api.sqlF(sql,callback);
+    }
 }
 module.exports = new Api();

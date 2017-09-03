@@ -46,7 +46,7 @@
       },
       addFenLei(){
         var that=this;
-        this.$ajax.get('/api/addcategory',{
+        this.$ajax.get('/addcategory',{
           params:{
             text:this.fenLei,
           }
@@ -62,7 +62,7 @@
       fetData(){
         var that=this;
         if( that.$route.query.id){
-          this.$ajax.post('/api/findText',{
+          this.$ajax.post('/findText',{
             params:{
               id:this.$route.query.id
             }
@@ -80,7 +80,7 @@
             });
         }
 
-        this.$ajax.post('/api/findCategory',{
+        this.$ajax.post('/findCategory',{
 
         })
           .then(function(response){
@@ -117,7 +117,7 @@
       },
       submit(value ,reder){
           if(this.$route.query.id){
-            this.$ajax.post('/api/updateArticle',{
+            this.$ajax.post('/updateArticle',{
               params:{
                 title:this.title,
                 cateId:this.category,
@@ -135,7 +135,7 @@
               });
           }
           else {
-            this.$ajax.post('/api/addArticle',{
+            this.$ajax.post('/addArticle',{
               params:{
                 title:this.title,
                 cateId:this.category,

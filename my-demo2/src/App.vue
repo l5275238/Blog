@@ -19,15 +19,15 @@
         </div>
         <div class="nav-content-middle">
           <div class="col-md-4">
-            <p>11</p>
+            <p>{{articleLenght}}</p>
             <p>日记</p>
           </div>
           <div class="col-md-4">
-            <p>6</p>
+            <p>{{CategoryLenght}}</p>
             <p>分类</p>
           </div>
           <div class="col-md-4">
-            <p>111</p>
+            <p>{{fileLength}}</p>
             <p>标签</p>
           </div>
         </div>
@@ -56,17 +56,22 @@ export default {
         name:'1',
         imgUrl:'1',
         content:'1',
+      articleLenght:'1',
+      CategoryLenght:'',
+      fileLength:'',
     }
 
   },
   created(){
     this.getUser();
     this.getAriticle();
+    this.getCategory();
+    this.getLable();
   },
   methods:{
     getUser(){
       var that=this;
-      this.$ajax.get('/api/user',{
+      this.$ajax.get('/user',{
       })
 
         .then(function(data){
@@ -82,13 +87,36 @@ export default {
 
     },
     getAriticle(){
-      this.$ajax.get('/api/findArticleLenght',{})
+      var that=this;
+      this.$ajax.get('/findArticleLenght',{})
         .then(function(data){
           var obj=data.data[0];
-
-          that.articleLenght=obj.text;
-          that.name=obj.name;
-          that.imgUrl=obj.url;
+          console.log(obj);
+          that.articleLenght=obj['count(1)'];
+        })
+        .catch(function(err){
+//          console.log(err);
+        });
+    },
+    getCategory(){
+        var that=this;
+      this.$ajax.get('/findCategoryLenght',{})
+        .then(function(data){
+          var obj=data.data[0];
+          console.log(obj);
+          that.CategoryLenght=obj['count(1)'];
+        })
+        .catch(function(err){
+//          console.log(err);
+        });
+    },
+    getLable(){
+      var that=this
+      this.$ajax.get('/findFileLength',{})
+        .then(function(data){
+          var obj=data.data[0];
+          console.log(obj);
+          that.fileLength=obj['count(1)'];
         })
         .catch(function(err){
 //          console.log(err);

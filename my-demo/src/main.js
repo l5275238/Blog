@@ -35,6 +35,7 @@ router.beforeEach((to, from, next) => {
   }
 })
 axios.interceptors.request.use(function (config) {
+  config.url='/api'+config.url;
   if (store.state.getToken()) {// 判断是否存在token，如果存在的话，则每个http header都加上token
     config.headers.Authorization = store.state.getToken();
   }

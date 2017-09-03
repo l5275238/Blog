@@ -35,7 +35,7 @@
     methods: {
       login(){
           var that=this;
-        this.$ajax.post('/api/login',{
+        this.$ajax.post('/login',{
           params:{
             loginName:this.loginName,
             password:this.password,

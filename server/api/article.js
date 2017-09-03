@@ -11,7 +11,7 @@ function Api() {
   }
   //分页获取文章列表
   this.findArticle=function (callback,page,row) {
-    var sql='select a.title,a.date,a.id,b.text from Article a left join category b on a.cateId = b.id ORDER BY id limit '+(page-1)*row+','+row;
+    var sql='select a.*,b.text from Article a left join category b on a.cateId = b.id ORDER BY id limit '+(page-1)*row+','+row;
     api.sqlF(sql,callback);
   }
   //获取文章总数

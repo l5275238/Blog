@@ -25,5 +25,10 @@ function Api() {
     var sql="DELETE FROM category where id= "+id;
     api.sqlF(sql,callback);
   }
+    //获取分类
+    this.findCategoryLenght=function (callback) {
+        var sql='select count(1) from category'
+        api.sqlF(sql,callback);
+    }
 }
 module.exports =  new Api();

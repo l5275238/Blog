@@ -42,7 +42,7 @@ export default {
   },
   methods:{
     goto(){
-      this.$ajax.get('/api/updateUsers',{
+      this.$ajax.get('/updateUsers',{
         params:{
           text:this.text,
           name:this.name,
@@ -62,7 +62,7 @@ export default {
     },
     fetData(){
         var that=this;
-      this.$ajax.get('/api/user',{
+      this.$ajax.get('/user',{
       })
         .then(function(data){
           console.log(data);

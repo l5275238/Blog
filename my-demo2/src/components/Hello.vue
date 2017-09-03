@@ -1,12 +1,12 @@
 <template>
 <div id="heleo">
-   <div class="wenZhang">
-     <h3 class="title">你好</h3>
-     <div class="fenLei">分类呀</div>
-     <div class="content">
-       你好呀啊啊啊啊啊啊啊啊啊啊啊啊啊
+   <div class="wenZhang"  v-for="item in articleList">
+     <h3 class="title">{{item.title}}</h3>
+     <div class="fenLei">{{item.text}}</div>
+     <div class="content" v-html="item.html">
+
      </div>
-     <div class="time">2017.6.8</div>
+     <div class="time">{{item.date}}</div>
    </div>
 </div>
 </template>
@@ -16,8 +16,46 @@ export default {
   name: 'hello',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      articleList:[],
     }
+
+  },
+  created(){
+    this.getListAritic();
+
+  },
+  methods:{
+    getAriticleLen(){
+      var that=this;
+      this.$ajax.get('/findArticleLenght',{})
+        .then(function(data){
+          var obj=data.data[0];
+          console.log(obj);
+          that.articleLenght=obj['count(1)'];
+        })
+        .catch(function(err){
+//          console.log(err);
+        });
+    },
+    getListAritic(){
+      var that=this;
+      this.$ajax.get('/findArticle',{
+        params:{
+          page:1,
+          row:10
+        }
+      })
+        .then(function(data){
+          var obj=data.data;
+
+          console.log(obj);
+          that.articleList=obj;
+        })
+        .catch(function(err){
+//          console.log(err);
+        });
+    },
   }
 }
 </script>
@@ -35,6 +73,10 @@ export default {
 .wenZhang{
   background: #ffffff;
   padding: 10px 20px;
+  margin-bottom: 20px;
+}
+.wenZhang .content{
+  background: #f5f7f9;
 }
 h1, h2 {
   font-weight: normal;

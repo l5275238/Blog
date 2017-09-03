@@ -96,7 +96,7 @@ export default {
     },
     delet (id,index) {
       var that=this;
-      this.$ajax.get('/api/deleteArticle',{
+      this.$ajax.get('/deleteArticle',{
         params:{
           id:id,
           page:this.page,
@@ -115,7 +115,7 @@ export default {
     },
     fetData () {
         var that=this;
-      this.$ajax.get('/api/findArticle',{
+      this.$ajax.get('/findArticle',{
         params:{
          page:this.page,
           row:this.row
@@ -129,7 +129,7 @@ export default {
         .catch(function(err){
           console.log(err);
         });
-      this.$ajax.get('/api/findArticleLenght')
+      this.$ajax.get('/findArticleLenght')
         .then(function(response){
 var data=response.data[0]
         that.lengh=data['count(1)']

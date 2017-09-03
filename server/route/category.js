@@ -31,6 +31,12 @@ route.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
     },text,id)
 
   })
+//获取文章总数
+route.get('/findCategoryLenght',function (req,res) {
+    api.findCategoryLenght(function (error,rows) {
+        callBack(error,rows,req,res)
+    })
+})
   route.get('/deleteCategory',function (req,res) {
     var id=req.query.id;
     api.deleteCategory(function (error,rows) {

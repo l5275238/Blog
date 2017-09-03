@@ -39,5 +39,11 @@ route.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
     },id,text,index)
 
   })
+//获取文章总数
+route.get('/findFileLength',function (req,res) {
+    api.findFileLength(function (error,rows) {
+        callBack(error,rows,req,res)
+    })
+})
 
 module.exports = route;
