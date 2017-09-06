@@ -6,7 +6,7 @@
        {{name}}的博客
       </div>
       <ul class="list-group nav-list">
-        <li class="list-group-item "><img src="./assets/img/shouYe.png">首页</li>
+        <li class="list-group-item " @click="goto('/')"><img src="./assets/img/shouYe.png">首页</li>
         <li class="list-group-item"><img src="./assets/img/guiDang.png">归档</li>
         <li class="list-group-item"><img src="./assets/img/biaoQian.png">标签</li>
         <li class="list-group-item"><img src="./assets/img/souSuo.png">搜索</li>
@@ -20,15 +20,15 @@
         <div class="nav-content-middle">
           <div class="col-md-4">
             <p>{{articleLenght}}</p>
-            <p>日记</p>
+            <p @click="goto('Diary')">日记</p>
           </div>
           <div class="col-md-4">
             <p>{{CategoryLenght}}</p>
-            <p>分类</p>
+            <p  @click="goto('Classify')">分类</p>
           </div>
           <div class="col-md-4">
             <p>{{fileLength}}</p>
-            <p>标签</p>
+            <p  @click="goto('Label')">标签</p>
           </div>
         </div>
         <div class="nav-content-bottom">
@@ -121,6 +121,9 @@ export default {
         .catch(function(err){
 //          console.log(err);
         });
+    },
+    goto(value){
+      this.$router.push(value);
     }
 
   }

@@ -77,6 +77,8 @@ export default {
 }
 .wenZhang .content{
   background: #f5f7f9;
+  text-align: left;
+
 }
 h1, h2 {
   font-weight: normal;
@@ -100,5 +102,6 @@ a {
   }
   .fenLei{
     text-align: right;
+    padding: 10px 0;
   }
 </style>
