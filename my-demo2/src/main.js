@@ -9,7 +9,10 @@ import router from './router'
 import $ from 'jquery'
 import 'bootstrap/js/bootstrap.min.js'
 import 'bootstrap/css/bootstrap.min.css'
+import pagination from '@/components/pagination'
 
+
+Vue.component('pagination',pagination)
 Vue.config.productionTip = false
 Vue.prototype.$ajax = axios
 
@@ -35,6 +38,6 @@ new Vue({
   el: '#app',
   router,
   template: '<App/>',
-  components: { App }
+  components: { App },
 })
 

@@ -1,15 +1,16 @@
 <template>
   <div id="Diary">
 
-    <div class="DiaryList"><span class="yuan"></span> <span style="line-height: 40px">共计{{articleLenght}}日记，加油</span></div>
+    <div class="DiaryList"><span class="yuan"></span> <span style="line-height: 40px">共计{{total}}日记，加油</span></div>
 
   <div class="DiaryList" v-for="item in articleList "><span class="yuan"></span><span class="title">{{item.title}}<span class="date">{{item.text}}<br>{{item.date}}</span></span><span class="shu"></span></div>
 
-
+    <pagination :total="total" :current-page='current' @pagechange="pagechange"></pagination>
   </div>
 </template>
 
 <script>
+
   export default {
     name: 'hello',
     data () {
@@ -17,6 +18,10 @@
         msg: 'Welcome to Your Vue.js App',
         articleList:[],
         articleLenght:'',
+        total: 150,     // 记录总条数
+        showPage: 10,   // 每页显示条数
+        current: 1,   // 当前的页数
+        row:1,
       }
 
     },
@@ -25,14 +30,22 @@
       this.getAriticleLen();
 
     },
+    computed:{
+
+    },
     methods:{
+      pagechange:function (val) {
+       this.row=val;
+        getListAritic();
+
+      },
       getAriticleLen(){
         var that=this;
         this.$ajax.get('/findArticleLenght',{})
           .then(function(data){
             var obj=data.data[0];
             console.log(obj);
-            that.articleLenght=obj['count(1)'];
+            that.total=obj['count(1)'];
             console.log(that.articleLenght);
           })
           .catch(function(err){
@@ -43,8 +56,8 @@
         var that=this;
         this.$ajax.get('/findArticle',{
           params:{
-            page:1,
-            row:10
+            page:this.row,
+            row:this.showPage
           }
         })
           .then(function(data){
@@ -58,6 +71,7 @@
           });
       },
     }
+
   }
 </script>
 

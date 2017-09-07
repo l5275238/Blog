@@ -7,8 +7,8 @@
       </div>
       <ul class="list-group nav-list">
         <li class="list-group-item " @click="goto('/')"><img src="./assets/img/shouYe.png">首页</li>
-        <li class="list-group-item"><img src="./assets/img/guiDang.png">归档</li>
-        <li class="list-group-item"><img src="./assets/img/biaoQian.png">标签</li>
+        <li class="list-group-item"  @click="goto('Diary')"><img src="./assets/img/guiDang.png">归档</li>
+        <li class="list-group-item"  @click="goto('Label')"><img src="./assets/img/biaoQian.png">标签</li>
         <li class="list-group-item"><img src="./assets/img/souSuo.png">搜索</li>
       </ul>
       <div class="nav-content">
@@ -178,6 +178,7 @@ var b=new a()
     position: relative;
     text-align: left;
     padding-left: 60px;
+    cursor: pointer;
   }
   .list-group-item>img{
   position: absolute;
@@ -203,6 +204,10 @@ var b=new a()
 }
   .nav-content-middle{
     overflow: hidden;
+
+  }
+  .nav-content-middle>div>p{
+    cursor: pointer;
   }
   .nav-content-middle div:nth-child(1){
        border-right: 2px solid #cccccc;

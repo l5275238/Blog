@@ -7,6 +7,7 @@ import 'iview/dist/styles/iview.css';
 import App from './App'
 import router from './router'
 import store from './store'
+import pagination from '@/components/pagination'
 
 Vue.use(iView)
 
@@ -70,6 +71,7 @@ new Vue({
   router,
   store,
   template: '<App/>',
-  components: { App }
+  components: { App },
+
 })
 
