@@ -20,7 +20,7 @@
       }
 
     },
-    created(){
+    mounted(){
       this.getListAritic();
       this.getAriticleLen();
 

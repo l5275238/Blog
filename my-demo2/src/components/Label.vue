@@ -20,12 +20,13 @@
       }
 
     },
-    created(){
+    mounted(){
       this.getListAritic();
       this.getAriticleLen();
 
     },
     methods:{
+
       getAriticleLen(){
         var that=this;
         this.$ajax.get('/findFileLength',{})

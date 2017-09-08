@@ -4,6 +4,7 @@ import Hello from '@/components/Hello'
 import Diary from '@/components/Diary'
 import Classify from '@/components/Classify'
 import Label from '@/components/Label'
+import lookAriticle from '@/components/lookAriticle'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path:'/Label',
       name: 'Label',
       component: Label
+    },
+    {
+      path:'/lookAriticle',
+      name: 'lookAriticle',
+      component: lookAriticle
     },
   ]
 })

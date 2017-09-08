@@ -1,12 +1,13 @@
 <template>
-  <div id="Diary">
-
+  <div id="Diary2">
+      <div id ="Diary">
     <div class="DiaryList"><span class="yuan"></span> <span style="line-height: 40px">共计{{total}}日记，加油</span></div>
 
   <div class="DiaryList" v-for="item in articleList "><span class="yuan"></span><span class="title">{{item.title}}<span class="date">{{item.text}}<br>{{item.date}}</span></span><span class="shu"></span></div>
-
+      </div>
     <pagination :total="total" :current-page='current' @pagechange="pagechange"></pagination>
   </div>
+
 </template>
 
 <script>
@@ -18,14 +19,14 @@
         msg: 'Welcome to Your Vue.js App',
         articleList:[],
         articleLenght:'',
-        total: 150,     // 记录总条数
+        total: 1,     // 记录总条数
         showPage: 10,   // 每页显示条数
         current: 1,   // 当前的页数
         row:1,
       }
 
     },
-    created(){
+    mounted(){
       this.getListAritic();
       this.getAriticleLen();
 

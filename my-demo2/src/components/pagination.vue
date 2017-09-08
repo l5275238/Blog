@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="pagination">
     <ul class="pagination">
       <li><a href="javascript:void(0)" @click="next(current-1)" :class="{'disabled':page==1}">&laquo;</a></li>
       <li v-for="p in grouplist"  @click="next(p)"><a :class="{'active':current==p }" href="javascript:void(0)"> {{ p }}</a></li>
