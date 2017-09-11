@@ -34,7 +34,7 @@ axios.interceptors.response.use(function (response) {
   return Promise.reject(error);
 });
 /* eslint-disable no-new */
-new Vue({
+window.myvue=new Vue({
   el: '#app',
   router,
   template: '<App/>',

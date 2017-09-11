@@ -42,6 +42,19 @@
     <div class="col-md-9" id="right">
       <router-view></router-view>
     </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header" style="padding: 0;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <input type="text" id="search" class="form-control" placeholder="搜索" style="border: none" v-model="childrens.name">
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
 
@@ -49,6 +62,12 @@
 </template>
 
 <script>
+  window.onload=function () {
+    $('#myModal').modal('show');
+//    $('#search').on('input propertychange',function () {
+//      console.log(myvue);
+//    })
+  }
 export default {
   name: 'app',
   data(){
@@ -59,6 +78,10 @@ export default {
       articleLenght:'1',
       CategoryLenght:'',
       fileLength:'',
+      search:"",
+      childrens:{
+            name:1
+      }
     }
 
   },
@@ -67,6 +90,12 @@ export default {
     this.getAriticle();
     this.getCategory();
     this.getLable();
+  },
+  watch:{
+    "childrens.name"(curVal,oldVal){
+      console.log(curVal,oldVal);
+    },
+
   },
   methods:{
     getUser(){
@@ -217,5 +246,16 @@ var b=new a()
 }
   .nav-content-bottom{
     padding: 10px ;
+  }
+  .modal-header  .form-control{
+    height: 50px;
+  }
+  .modal-header .close{
+    position: absolute;
+    right: 10px;
+    top: 15px;
+  }
+  .modal-body{
+    height: 500px;
   }
 </style>

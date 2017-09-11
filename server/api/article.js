@@ -21,7 +21,7 @@ function Api() {
   }
 //查询文章
   this.findText=function (callback,id) {
-    var sql='SELECT * FROM Article where id ='+id;
+    var sql='SELECT a.*,b.text FROM Article a left join category b on a.cateId = b.id where a.id ='+id;
     api.sqlF(sql,callback);
   }
   //更新文章

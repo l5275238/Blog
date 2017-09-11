@@ -8,6 +8,7 @@
      </div>
      <div class="time">{{item.date}}</div>
    </div>
+  <pagination :total="total" :current-page='current' @pagechange="pagechange"></pagination>
 </div>
 </template>
 
@@ -18,6 +19,10 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       articleList:[],
+      total: 1,     // 记录总条数
+      showPage: 10,   // 每页显示条数
+      current: 1,   // 当前的页数
+      row:1,
     }
 
   },
@@ -29,13 +34,17 @@ export default {
     gotoLook(id) {
       this.$router.push({name:'lookAriticle',query:{id:id}})
     },
+    pagechange(page){
+      this.row=page;
+      this.getListAritic();
+    },
     getAriticleLen(){
       var that=this;
       this.$ajax.get('/findArticleLenght',{})
         .then(function(data){
           var obj=data.data[0];
           console.log(obj);
-          that.articleLenght=obj['count(1)'];
+          that.total=obj['count(1)'];
         })
         .catch(function(err){
 //          console.log(err);
@@ -45,7 +54,7 @@ export default {
       var that=this;
       this.$ajax.get('/findArticle',{
         params:{
-          page:1,
+          page:this.row,
           row:10
         }
       })
@@ -92,6 +101,7 @@ export default {
   overflow: hidden;
   padding: 10px;
   text-indent:2em;
+  border-radius: 10px;
 
 }
 h1, h2 {
