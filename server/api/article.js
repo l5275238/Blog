@@ -24,6 +24,11 @@ function Api() {
     var sql='SELECT a.*,b.text FROM Article a left join category b on a.cateId = b.id where a.id ='+id;
     api.sqlF(sql,callback);
   }
+  //搜索文章
+    this.searchArticle=function (text,callback,page,row) {
+        var sql="SELECT * FROM Article where title like '%"+text+"%'limit "+(page-1)*row+","+row;
+        api.sqlF(sql,callback)
+    }
   //更新文章
   this.updateArticle=function (callback,id,title,text,cateId,html) {
     var sql="update Article set cateId= "+cateId+", title= '"+title+"',text='"+text+"',html='"+html+"' where id ="+id;

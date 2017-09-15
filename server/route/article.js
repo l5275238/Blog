@@ -66,6 +66,15 @@ route.post('/updateArticle',function (req,res) {
       callBack(error,rows,req,res)
     },id)
   })
+//搜索文章
+route.post('/searchArticle',function (req,res) {
+    var text=req.body.param.text;
+    var row=req.body.param.row;
+    var page=req.body.param.page;
+    api.searchArticle(text,function () {
+        callBack(error,rows,req,res)
+    },page,row)
+})
 
 
 module.exports = route;

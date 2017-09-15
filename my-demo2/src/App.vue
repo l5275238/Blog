@@ -47,10 +47,19 @@
         <div class="modal-content">
           <div class="modal-header" style="padding: 0;">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <input type="text" id="search" class="form-control" placeholder="搜索" style="border: none" v-model="childrens.name">
+            <input type="text" id="search" class="form-control" placeholder="搜索" style="border: none" v-model="search">
           </div>
           <div class="modal-body">
-            ...
+            <ul class="list-group">
+              <li class="list-group-item" >免费域名注册</li>
+              <li class="list-group-item">免费 Window 空间托管</li>
+              <li class="list-group-item">图像的数量</li>
+              <li class="list-group-item">每年更新成本</li>
+              <li class="list-group-item">
+
+              </li>
+            </ul>
+            <pagination :total="total" :current-page='current' @pagechange="pagechange"></pagination>
           </div>
         </div>
       </div>
@@ -78,10 +87,13 @@ export default {
       articleLenght:'1',
       CategoryLenght:'',
       fileLength:'',
-      search:"",
-      childrens:{
-            name:1
-      }
+      total: 1,     // 记录总条数
+      showPage: 10,   // 每页显示条数
+      current: 1,   // 当前的页数
+      row:1,
+      searchList:"",
+      search:"1",
+
     }
 
   },
@@ -92,12 +104,33 @@ export default {
     this.getLable();
   },
   watch:{
-    "childrens.name"(curVal,oldVal){
-      console.log(curVal,oldVal);
+    "search"(newValue, oldValue){
+      this.getSearch(newValue);
+
     },
 
   },
   methods:{
+      getSearch(text){
+        var that=this;
+        this.$ajax.post('/searchArticle', {
+          params: {
+            page: this.row,
+            row: this.showPage,
+            text: curVal,
+
+          }})
+          .then(function (data) {
+            var obj = data.data[0];
+
+            that.searchList = obj.text;
+            that.name = obj.name;
+            that.imgUrl = obj.url;
+          })
+            .catch(function (err) {
+//          console.log(err);
+            });
+      },
     getUser(){
       var that=this;
       this.$ajax.get('/user',{
@@ -153,22 +186,15 @@ export default {
     },
     goto(value){
       this.$router.push(value);
-    }
+    },
+    pagechange(val){
+      this.row=val;
+      getListAritic();
+    },
 
   }
 }
 
-var a=function () {
-  this.name=1
-}
-a.prototype={
-    getName:function () {
-//      console.log(this);
-    }
-}
-var b=new a()
-
-  b.getName();
 
 </script>
 
@@ -258,4 +284,8 @@ var b=new a()
   .modal-body{
     height: 500px;
   }
+  .modal-body .list-group-item{
+padding-left: 0;
+  }
+
 </style>
