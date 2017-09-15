@@ -93,7 +93,6 @@ export default {
       row:1,
       searchList:"",
       search:"1",
-
     }
 
   },
