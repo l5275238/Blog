@@ -68,10 +68,11 @@ route.post('/updateArticle',function (req,res) {
   })
 //搜索文章
 route.post('/searchArticle',function (req,res) {
-    var text=req.body.param.text;
-    var row=req.body.param.row;
-    var page=req.body.param.page;
-    api.searchArticle(text,function () {
+    var text=req.body.params.text;
+    console.log(text);
+    var row=req.body.params.row;
+    var page=req.body.params.page;
+    api.searchArticle(text,function (error,rows) {
         callBack(error,rows,req,res)
     },page,row)
 })

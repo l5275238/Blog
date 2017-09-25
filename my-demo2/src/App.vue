@@ -9,7 +9,7 @@
         <li class="list-group-item " @click="goto('/')"><img src="./assets/img/shouYe.png">首页</li>
         <li class="list-group-item"  @click="goto('Diary')"><img src="./assets/img/guiDang.png">归档</li>
         <li class="list-group-item"  @click="goto('Label')"><img src="./assets/img/biaoQian.png">标签</li>
-        <li class="list-group-item"><img src="./assets/img/souSuo.png">搜索</li>
+        <li class="list-group-item" data-toggle="modal" data-target="#myModal"><img src="./assets/img/souSuo.png" >搜索</li>
       </ul>
       <div class="nav-content">
         <div class="nav-content-top">
@@ -51,15 +51,9 @@
           </div>
           <div class="modal-body">
             <ul class="list-group">
-              <li class="list-group-item" >免费域名注册</li>
-              <li class="list-group-item">免费 Window 空间托管</li>
-              <li class="list-group-item">图像的数量</li>
-              <li class="list-group-item">每年更新成本</li>
-              <li class="list-group-item">
-
-              </li>
+              <li class="list-group-item" v-for="item in searchList" @click="gotoLook(item.id)" >{{item.title}}</li>
             </ul>
-            <pagination :total="total" :current-page='current' @pagechange="pagechange"></pagination>
+            <pagination class="paginationDiv" v-show="searchList.length>0" :total="total" :current-page='current' @pagechange="pagechange"></pagination>
           </div>
         </div>
       </div>
@@ -71,12 +65,6 @@
 </template>
 
 <script>
-  window.onload=function () {
-    $('#myModal').modal('show');
-//    $('#search').on('input propertychange',function () {
-//      console.log(myvue);
-//    })
-  }
 export default {
   name: 'app',
   data(){
@@ -91,8 +79,8 @@ export default {
       showPage: 10,   // 每页显示条数
       current: 1,   // 当前的页数
       row:1,
-      searchList:"",
-      search:"1",
+      searchList:[],
+      search:"",
     }
 
   },
@@ -110,21 +98,26 @@ export default {
 
   },
   methods:{
+    gotoLook(id) {
+        $('#myModal').modal('hide')
+      this.$router.push({name:'lookAriticle',query:{id:id}})
+    },
       getSearch(text){
+        if(!text){
+            return
+        }
         var that=this;
         this.$ajax.post('/searchArticle', {
           params: {
             page: this.row,
             row: this.showPage,
-            text: curVal,
-
+            text: text,
           }})
           .then(function (data) {
-            var obj = data.data[0];
+            var obj = data.data;
 
-            that.searchList = obj.text;
-            that.name = obj.name;
-            that.imgUrl = obj.url;
+            that.searchList = obj;
+            console.log(that.searchList);
           })
             .catch(function (err) {
 //          console.log(err);
@@ -242,6 +235,12 @@ export default {
 .nav-content{
   background: #ffffff;
   padding: 20px;
+}
+.paginationDiv{
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform:translateX(-50%) ;
 }
   .nav-content-top>img{
     width: 150px;
