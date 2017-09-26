@@ -31,7 +31,6 @@ debugger
     div.style.transform='translateX(100%)';
   },
   mounted:function () {
-    debugger
     var div=document.getElementById('wel');
     var app1=document.getElementById('app');
     div.style.transform='translateX(-100%)';

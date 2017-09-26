@@ -104,6 +104,7 @@ export default {
     },
       getSearch(text){
         if(!text){
+            this.searchList=[];
             return
         }
         var that=this;
