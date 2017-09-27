@@ -10,6 +10,8 @@ import $ from 'jquery'
 import 'bootstrap/js/bootstrap.min.js'
 import 'bootstrap/css/bootstrap.min.css'
 import pagination from '@/components/pagination'
+import util from './util'
+Vue.use(util);
 
 
 Vue.component('pagination',pagination)

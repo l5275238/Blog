@@ -13,7 +13,7 @@
       </ul>
       <div class="nav-content">
         <div class="nav-content-top">
-        <img src="./assets/logo.png">
+        <img :src="this.imgUrl">
         <p>{{name}}</p>
         <p>{{content}}</p>
         </div>
@@ -93,6 +93,7 @@ export default {
   watch:{
     "search"(newValue, oldValue){
       this.getSearch(newValue);
+      this.getData();
 
     },
 
@@ -134,7 +135,7 @@ export default {
 
           that.content=obj.text;
           that.name=obj.name;
-          that.imgUrl=obj.url;
+          that.imgUrl=that.url+obj.url;
         })
         .catch(function(err){
 //          console.log(err);

@@ -92,7 +92,7 @@
       },
       delet (id,index) {
         var that=this;
-        this.$ajax.get('/api/deleteCategory',{
+        this.$ajax.get('/deleteCategory',{
           params:{
             id:id,
           }
@@ -109,7 +109,7 @@
       },
       addFenLei(){
         var that=this;
-            var url=this.cateId?'/api/updateCategory':'/api/addcategory';
+            var url=this.cateId?'/updateCategory':'/addcategory';
 
         this.$ajax.get(url,{
           params:{
@@ -127,7 +127,7 @@
       },
       fetData(){
         var that=this;
-        this.$ajax.post('/api/findCategory',{
+        this.$ajax.post('/findCategory',{
 
         })
           .then(function(response){

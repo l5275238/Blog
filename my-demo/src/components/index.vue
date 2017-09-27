@@ -55,7 +55,7 @@
       var ctx = canvas.getContext('2d')
       canvas.width = width;
       canvas.height = height;
-      var pannel = new Panel(width, height, ctx,'blue','#fff');
+      var pannel = new Panel(width, height, ctx,'#fff','#f0eef5');
 
       //画布和线
       function Panel(width, height, ctx,color1,color2) {
@@ -67,8 +67,8 @@
         var num = 100;
         //线条半径
         var r = 200;
-        var color1=color1?color1:'#000'
-        var color2=color2?color2:'#002'
+        var color1=color1?color1:'#ccc'
+        var color2=color2?color2:'#000'
         //小球的数组
         this.round = [];
         this.width = width;
@@ -207,7 +207,7 @@
       body.onmousemove = function (e) {
         pannel.setLineX(e.clientX, e.clientY)
       }
-      requestAnimationFrame(go);
+//      requestAnimationFrame(go);
     }
   }
 </script>
@@ -306,23 +306,24 @@
   .ivew {
     width: 120px;
     height: 120px;
-    border-radius: 50%;
-    color: #ffffff;
+    /*border-radius: 50%;*/
+    /*color: #ffffff;*/
     text-align: center;
-    border: 1px solid #ffffff;
+    /*border: 1px solid #ffffff;*/
     line-height: 120px;
     margin: 50px;
     font-size: 20px;
+    cursor: pointer;
   }
 
   .ivew:hover {
     transform: translateX(10px);
-    width: 140px;
-    height: 140px;
+    /*width: 140px;*/
+    /*height: 140px;*/
     line-height: 140px;
     font-size: 25px;
     transition: all 0.5s;
-    border: 1px solid #ffffff;
+    /*border: 1px solid #ffffff;*/
   }
 
   #view {
@@ -332,59 +333,63 @@
     z-index: 999;
     padding-left: 200px;
     vertical-align: middle;
-    padding-top: 200px;
-    color: #ffffff;
-
+    /*padding-top: 200px;*/
+    /*color: #ffffff;*/
+    /*padding-top: 100px;*/
+    background: #ffffff;
+    /*display: flex;*/
+    /*justify-content:center;*/
+    /*align-items:center;*/
   }
 
-  .ivu-table {
-    background: none;
-    color: #ffffff;
-    border: none;
-    font-size: 20px;
-  }
+  /*.ivu-table {*/
+    /*background: none;*/
+    /*color: #ffffff;*/
+    /*border: none;*/
+    /*font-size: 20px;*/
+  /*}*/
 
-  .ivu-table-wrapper {
-    border: none;
-  }
+  /*.ivu-table-wrapper {*/
+    /*border: none;*/
+  /*}*/
 
-  .ivu-table th {
-    color: #ffffff;
-    background: transparent !important;
-    border: none;
-  }
+  /*!*.ivu-table th {*!*/
+    /*!*color: #ffffff;*!*/
+    /*!*background: transparent !important;*!*/
+    /*!*border: none;*!*/
+  /*!*}*!*/
 
-  .ivu-table td {
-    background: none;
-  }
+  /*.ivu-table td {*/
+    /*background: none;*/
+  /*}*/
 
-  .ivu-table-stripe .ivu-table-body tr:nth-child(2n) td, .ivu-table-stripe .ivu-table-fixed-body tr:nth-child(2n) td {
-    background: none;
-  }
+  /*.ivu-table-stripe .ivu-table-body tr:nth-child(2n) td, .ivu-table-stripe .ivu-table-fixed-body tr:nth-child(2n) td {*/
+    /*background: none;*/
+  /*}*/
 
-  .ivu-table-stripe .ivu-table-body tr:nth-child(2n) td, .ivu-table-stripe .ivu-table-fixed-body tr:nth-child(2n) td:hover {
-    background: none;
-  }
+  /*.ivu-table-stripe .ivu-table-body tr:nth-child(2n) td, .ivu-table-stripe .ivu-table-fixed-body tr:nth-child(2n) td:hover {*/
+    /*background: none;*/
+  /*}*/
 
-  .ivu-table td, .ivu-table th {
-    border: none;
-  }
+  /*.ivu-table td, .ivu-table th {*/
+    /*border: none;*/
+  /*}*/
 
-  tr.ivu-table-row-hover td {
-    background: none;
-  }
+  /*tr.ivu-table-row-hover td {*/
+    /*background: none;*/
+  /*}*/
 
-  .ivu-table:after {
-    display: none;
-  }
+  /*.ivu-table:after {*/
+    /*display: none;*/
+  /*}*/
 
-  .ivu-table:before {
-    display: none;
-  }
+  /*.ivu-table:before {*/
+    /*display: none;*/
+  /*}*/
 
-  .th .ivu-table-cell {
-    font-size: 20px;
-  }
+  /*.th .ivu-table-cell {*/
+    /*font-size: 20px;*/
+  /*}*/
 
   /*.bounce-enter{*/
   /*opacity: 0;*/

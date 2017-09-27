@@ -83,19 +83,20 @@ export default {
   margin: 0;
 }
 .wenZhang{
-  background: #ffffff;
+  background: rgba(255,255,255,0.7);
   padding: 10px 20px;
   margin-bottom: 20px;
   border-radius: 10px;
   cursor: pointer;
-  box-sizing: border-box;
+  box-sizing: content-box;
 }
   .wenZhang:hover{
-    border: #2aabd2 2px solid;
+    border: #2aabd2 1px solid;
+    box-sizing: content-box;
 
   }
 .wenZhang .content{
-  background: #f5f7f9;
+  /*background: #f5f7f9;*/
   text-align: left;
   height: 300px;
   overflow: hidden;

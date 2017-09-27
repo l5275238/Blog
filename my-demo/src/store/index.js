@@ -69,8 +69,8 @@ const store=new Vuex.Store({
           ctx.fillRect(0, 0, this, width, this.height);
           ctx.beginPath();
           var lingrad = ctx.createLinearGradient(0, -this.width, 0, this.height);
-          lingrad.addColorStop(0, '#000');
-          lingrad.addColorStop(1, '#002');
+          lingrad.addColorStop(0, '#ccc');
+          lingrad.addColorStop(1, '#000');
           ctx.fillStyle = lingrad;
           ctx.fillRect(0, 0, this.width, this.height);
         }

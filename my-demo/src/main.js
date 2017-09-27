@@ -7,6 +7,10 @@ import 'iview/dist/styles/iview.css';
 import App from './App'
 import router from './router'
 import store from './store'
+import util from './util'
+
+Vue.use(util);
+
 // import pagination from '@/components/pagination'
 
 Vue.use(iView)

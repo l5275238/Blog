@@ -1,21 +1,22 @@
 <template>
-<div class="Addarticle">
+<div class="Addarticle" id="Addarticle">
   <h2>标题</h2>
-  <Input v-model="title" type="textarea" :autosize="{minRows: 2}" placeholder="请输入..."></Input>
+  <Input v-model="title" type="textarea" style="background: none" :autosize="{minRows: 2}" placeholder="请输入..."></Input>
   <h2>选择分类</h2>
   <Select v-model="category" style="width:200px">
     <Option v-for="item in categoryList" :value="item.id">{{ item.text }}</Option>
   </Select>
-  <h2>发布文章</h2>
   <div id="editor">
-  <mavon-editor  v-model="content"   @save="submit" @imgAdd="imgAdd"/></mavon-editor>
+  <!--<mavon-editor  v-model="content"   @save="submit" @imgAdd="imgAdd"/></mavon-editor>-->
+    <vue-editor v-model="content"></vue-editor>
   </div>
 </div>
 </template>
 
 <script>
-  import { mavonEditor } from 'mavon-editor'
-  import 'mavon-editor/dist/css/index.css'
+  import { VueEditor } from 'vue2-editor'
+//  import { mavonEditor } from 'mavon-editor'
+//  import 'mavon-editor/dist/css/index.css'
 
   export default {
     name: 'Addarticle',
@@ -34,10 +35,11 @@
       }
     },
     components: {
-      mavonEditor
+      VueEditor
       // or 'mavon-editor': mavonEditor
     },
     created(){
+//      console.log(VueQuillEditor);
       this.fetData();
     },
     methods: {
@@ -100,7 +102,7 @@
         oMyForm.append("img", file);
 
         this.$ajax({
-          url: '/api/profile',
+          url: '/profile',
           method: 'post',
           data: oMyForm,
           headers: { 'Content-Type': 'multipart/form-data' },
@@ -195,4 +197,5 @@ a {
     line-height: 40px;
 
   }
+
 </style>

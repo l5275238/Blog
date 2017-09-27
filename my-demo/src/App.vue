@@ -19,14 +19,14 @@ export default {
   },
 
   beforeCreate:function () {
-debugger
+
   },
   created:function () {
-    debugger
+
 
   },
   beforeMount:function () {
-    debugger
+
     var div=document.getElementById('app');
     div.style.transform='translateX(100%)';
   },

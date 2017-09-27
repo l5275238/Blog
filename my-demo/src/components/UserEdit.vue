@@ -29,12 +29,13 @@ export default {
   name: 'hello',
   data () {
     return {
-        name:null,
+      name:null,
       value: '',
       text:null,
       content:'',
       wenZhang:'',
-      src:''
+      src:'',
+      src2:'',
     }
   },
   created(){
@@ -46,7 +47,7 @@ export default {
         params:{
           text:this.text,
           name:this.name,
-          url:this.src
+          url:this.src2
         }
       })
         .then(function(response){
@@ -58,7 +59,8 @@ export default {
     },
     success(response, file, fileList){
 //      console.log(response);
-      this.src=response.path;
+      this.src2=response.path
+      this.src=this.url+response.path;
     },
     fetData(){
         var that=this;
@@ -69,7 +71,8 @@ export default {
           var obj=data.data[0];
           that.text=obj.text;
           that.name=obj.name;
-          that.src=obj.url;
+          that.src=that.url+obj.url;
+          this.src2=obj.url;
         })
         .catch(function(err){
 //          console.log(err);
