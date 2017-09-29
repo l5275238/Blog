@@ -1,6 +1,6 @@
 <template>
-  <div id="app" >
-  <div class="container">
+  <div id="app"  >
+  <div class="container" >
     <div class="col-md-3">
       <div class="nav-title">
        {{name}}的博客
@@ -34,7 +34,10 @@
         <div class="nav-content-bottom">
           <img src="./assets/img/github.png">
           <a href="">GitHub</a>
+          <img src="./assets/img/github.png">
+          <a href="">站长之家</a>
         </div>
+
       </div>
 
 

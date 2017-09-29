@@ -1,21 +1,69 @@
 <template>
+
   <div id="app" style="overflow: hidden">
+    <div class="layout" :class="{'layout-hide-text': spanLeft < 5}">
+      <Row type="flex">
+        <Col :span="spanLeft" class="layout-menu-left">
+        <Menu active-name="1" theme="dark" width="auto" @on-select="routeTo">
+          <div class="layout-logo-left"></div>
+          <!--<MenuItem  v-for="item in itmes"  name="item.name">-->
+            <!--<Icon type="ios-navigate" :size="iconSize"></Icon>-->
+            <!--<span class="layout-text">{{item.name}}</span>-->
+          <!--</MenuItem>-->
+          <MenuItem name="/User" title="发布文章" >
+            <Icon type="ios-keypad" :size="iconSize"></Icon>
+            <span class="layout-text">个人信息</span>
+          </MenuItem>
+          <MenuItem name="/File" title="发布文章">
+            <Icon type="ios-analytics" :size="iconSize"></Icon>
+            <span class="layout-text">个人标签</span>
+          </MenuItem>
+          <MenuItem name="/Category" title="发布文章">
+            <Icon type="ios-keypad" :size="iconSize"></Icon>
+            <span class="layout-text">文章分类</span>
+          </MenuItem>
+          <MenuItem name="/Articl" title="发布文章">
+            <Icon type="ios-analytics" :size="iconSize"></Icon>
+            <span class="layout-text">发布文章</span>
+          </MenuItem>
+        </Menu>
+        </Col>
+        <Col :span="spanRight">
+        <div class="layout-header">
+          <Button type="text" @click="toggleClick">
+            <Icon type="navicon" size="32"></Icon>
+          </Button>
+        </div>
+
+        <div class="layout-content">
+          <div class="layout-content-main">  <transition
+            name="bounce"
+          >
+            <router-view></router-view>
+          </transition></div>
+        </div>
+        <div class="layout-copy">
+          2011-2016 &copy; TalkingData
+        </div>
+        </Col>
+      </Row>
+    </div>
     <canvas id="canvas">
 
     </canvas>
 
-    <div id="ivew">
-      <div class="ivew" v-for="itme in itmes" @click="routeTo(itme.url)">{{itme.name}}</div>
+    <!--<div id="ivew">-->
+      <!--<div class="ivew" v-for="itme in itmes" @click="routeTo(itme.url)">{{itme.name}}</div>-->
 
-    </div>
+    <!--</div>-->
 
-    <div id="view">
-      <transition
-        name="bounce"
-      >
-        <router-view></router-view>
-      </transition>
-    </div>
+    <!--<div id="view">-->
+      <!--<transition-->
+        <!--name="bounce"-->
+      <!--&gt;-->
+        <!--<router-view></router-view>-->
+      <!--</transition>-->
+    <!--</div>-->
   </div>
 
 
@@ -31,21 +79,38 @@
         spanLeft: 5,
         spanRight: 19,
         text: '',
+        showName:'首页',
         itmes: [
           {name: '个人信息', url: '/User'},
           {name: '个人标签', url: '/File'},
           {name: '文章分类', url: '/Category'},
           {name: '发布文章', url: '/Articl'}
-        ]
+        ],
+
 
 
       }
     },
-    computed: {},
+    computed: {
+      iconSize (){
+        return this.spanLeft === 5 ? 14 : 24;
+      },
+
+    },
     methods: {
       routeTo (name){
         this.$router.push(name);
         this.text = name;
+        this.showName=name;
+      },
+      toggleClick () {
+        if (this.spanLeft === 5) {
+          this.spanLeft = 2;
+          this.spanRight = 22;
+        } else {
+          this.spanLeft = 5;
+          this.spanRight = 19;
+        }
       }
     },
     mounted(){
@@ -55,7 +120,7 @@
       var ctx = canvas.getContext('2d')
       canvas.width = width;
       canvas.height = height;
-      var pannel = new Panel(width, height, ctx,'#fff','#f0eef5');
+      var pannel = new Panel(width, height, ctx,'#fff','#e9eaec');
 
       //画布和线
       function Panel(width, height, ctx,color1,color2) {
@@ -207,7 +272,7 @@
       body.onmousemove = function (e) {
         pannel.setLineX(e.clientX, e.clientY)
       }
-//      requestAnimationFrame(go);
+      requestAnimationFrame(go);
     }
   }
 </script>
@@ -333,10 +398,10 @@
     z-index: 999;
     padding-left: 200px;
     vertical-align: middle;
-    /*padding-top: 200px;*/
-    /*color: #ffffff;*/
-    /*padding-top: 100px;*/
-    background: #ffffff;
+    padding-top: 200px;
+    color: #ffffff;
+    padding-top: 100px;
+    /*background: #ffffff;*/
     /*display: flex;*/
     /*justify-content:center;*/
     /*align-items:center;*/
