@@ -2,22 +2,24 @@
 <div class='all'>
 <div id='left'>
   <div id='left-top'><div>回首页</div></div>
-  <div id='new-book'><Icon type="plus-round"></Icon><a href="javascript:0">新建文集</a>
- <div class="addBook">
-    <input>
-    <div> <button>提交</button><a class='no-a'>取消</a></div>
-   
-  </div>
+  <div id='new-book'><Icon type="plus-round"></Icon><a href="javascript:0"  @click="isAdd=!isAdd">新建文集</a>
+    <transition name="isShow">
+ <div class="addBook" v-show='isAdd'>
+    <input v-model="fenLei">
+    <div> <button @click="addFenLei">提交</button><a class='no-a'>取消</a></div>
 
   </div>
-  <div id='bookList'>
-  <div>
-    <span>文章命名文集</span><Icon type="gear-b"></Icon>
+    </transition>
   </div>
+  <div id='bookList'>
+    <div v-for="item in tableData1" @click="findText(item.id)">
+      <span>{{item.text}}</span><Icon type="gear-b"></Icon>
+    </div>
 </div>
 </div>
 <div id='center'>
   <div id='addText'><Icon type="plus-circled"></Icon>新建文章</div>
+  <a href="javascript:0" id="textList"><span>标题</span><Icon type="gear-b"></Icon></a>
 
 </div>
 
@@ -37,7 +39,13 @@
   export default {
     data(){
       return {
-        current: this.currentPage
+        current: this.currentPage,
+        isAdd:false,
+        fenLei:'',
+        tableData1:[
+
+        ],
+        textList:[],
       }
     },
     props: {       //props 把数据传给子组件 以下属性是组件数据的一个字段，期望从父作用域传下来。子组件需要显式地用 props 选项 声明
@@ -51,8 +59,8 @@
       }
     },
     computed: {
-     
-      
+
+
     },
       mounted(){
         var that=this;
@@ -80,10 +88,10 @@
   editor.customConfig.uploadFileName = 'img'
   editor.customConfig.uploadImgHooks={
       before: function (xhr, editor, files) {
-        
+
         // 图片上传之前触发
         // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，files 是选择的图片文件
-        
+
         // 如果返回的结果是 {prevent: true, msg: 'xxxx'} 则表示用户放弃上传
         // return {
         //     prevent: true,
@@ -91,7 +99,7 @@
         // }
     },
     success: function (xhr, editor, result) {
-    
+
         // 图片上传并返回结果，图片插入成功之后触发
         // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
     },
@@ -121,7 +129,7 @@
 
         // result 必须是一个 JSON 格式字符串！！！否则报错
     }
-    
+
 
 
   };
@@ -132,11 +140,11 @@
 }
    editor.customConfig.onchange = function (html) {
         // html 即变化之后的内容
-    
+
        // show.innerHTML=html;
     }
    editor.create();
- 
+        this.fetData()
 
     },
     methods: {
@@ -145,7 +153,48 @@
          this.current=idx;
          this.$emit('pagechange', this.current);
        }
-      }
+      },
+      fetData(){
+        var that=this;
+        this.$ajax.post('/findCategory',{
+
+        })
+          .then(function(response){
+            console.log(response.data);
+            that.tableData1=response.data;
+          })
+          .catch(function(err){
+            console.log(err);
+          });
+      },
+      addFenLei(){
+        var that=this;
+        this.$ajax.get('/addcategory',{
+          params:{
+            text:this.fenLei,
+          }
+        })
+          .then(function(response){
+            that.fetData();
+          })
+          .catch(function(err){
+            console.log(err);
+          });
+      },
+      findText(id){
+        var that=this;
+        this.$ajax.post('/findFenLText',{
+          params:{
+            id:id,
+          }
+        })
+          .then(function(response){
+              that.textList=response.data;
+          })
+          .catch(function(err){
+            console.log(err);
+          });
+      },
     }
 
   }
@@ -205,15 +254,15 @@ outline:none;
 
  }
  #left{
-   flex-basis: 20%;
+   width: 20%;
    background:#3f3f3f;
    color: #ffffff
  }
  #center{
-  flex-basis: 20%;
+  width: 20%;
  }
  #editor{
-  flex-basis: 60%;
+  width: 60%;
  }
  .w-e-text{
   overflow-y: auto;
@@ -244,7 +293,7 @@ outline:none;
  }
  #new-book{
   padding: 0 15px;
-  
+
     margin-bottom: 10px;
     font-size: 11px;
     line-height: 20px;
@@ -258,6 +307,7 @@ outline:none;
    flex-direction: column;
   justify-content: space-between;
   align-items: center;
+   overflow: hidden;
  }
  .addBook>input{
     width: 100%;
@@ -286,7 +336,7 @@ outline:none;
   }
   #bookList>div{
         height: 34px;
-      
+
         font-size: 15px;
         display: flex;
          justify-content:space-between;
@@ -301,7 +351,6 @@ outline:none;
      display: flex;
        justify-content:flex-start;
         align-items:center;
-        display: block;
     padding: 20px 0 20px 25px;
     font-size: 15px;
     font-weight: normal;
@@ -309,7 +358,7 @@ outline:none;
   .title {
     height: 50px
   }
-  
+
   .title input{
         width: 100%;
         height: 100%;
@@ -326,4 +375,34 @@ outline:none;
     box-shadow: none;
     border: none;
   }
+.isShow-enter-active, .isShow-leave-active {
+  height: 100%;
+  transition: all 0.5s
+}
+#textList{
+  display: flex;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 36px;
+  padding: 15px 30px 15px 60px;
+  margin: 0px;
+  overflow: hidden;
+  justify-content:space-between;
+  align-items:center;
+  color: #2f2f2f;
+  width: 100%;
+}
+#textList >span{
+  display: block;
+}
+#textList >i{
+  color: #a0a0a0;
+}
+.isShow-enter, .isShow-leave-active {
+    height: 0;
+  transition: all 0.5s
+
+}
 </style>

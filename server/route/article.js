@@ -66,6 +66,13 @@ route.post('/updateArticle',function (req,res) {
       callBack(error,rows,req,res)
     },id)
   })
+//查询分类下的所用文章
+route.post('/findFenLText',function (req,res) {
+    var id=req.body.params.id;
+    api.findFenLText(function (error,rows) {
+        callBack(error,rows,req,res)
+    },id)
+})
 //搜索文章
 route.post('/searchArticle',function (req,res) {
     var text=req.body.params.text;

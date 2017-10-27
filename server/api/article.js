@@ -24,6 +24,12 @@ function Api() {
     var sql='SELECT a.*,b.text FROM Article a left join category b on a.cateId = b.id where a.id ='+id;
     api.sqlF(sql,callback);
   }
+  //查询分类下所用文章
+    this.findFenLText=function (callback,id) {
+        console.log(id);
+        var sql='SELECT * FROM Article where cateId=id'
+        api.sqlF(sql,callback);
+    }
   //搜索文章
     this.searchArticle=function (text,callback,page,row) {
         var sql="SELECT * FROM Article where title like '%"+text+"%'limit "+(page-1)*row+","+row;
