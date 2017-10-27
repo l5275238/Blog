@@ -42,7 +42,7 @@ export default new Router({
     {
       path:'/ceShi',
       name:'ceShi',
-      component:resolve => require(['../assembly/pagination.vue'], resolve)
+      component:resolve => require(['../zujian/pagination.vue'], resolve)
     },
 
     // {
