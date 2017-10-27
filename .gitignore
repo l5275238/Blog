@@ -1,0 +1,10 @@
+.DS_Store
+node_modules/
+dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.idea*
+my-demo/src/assembly/
+"server/img/QQ\345\233\276\347\211\20720171019154501.jpg"
+"img/QQ\345\233\276\347\211\20720171019154501.jpg"

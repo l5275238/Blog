@@ -39,6 +39,12 @@ export default new Router({
       name:'login',
       component:resolve => require(['../components/login.vue'], resolve)
     },
+    {
+      path:'/ceShi',
+      name:'ceShi',
+      component:resolve => require(['../assembly/pagination.vue'], resolve)
+    },
+
     // {
     //   path:'/Articl',
     //   name:'Article',
