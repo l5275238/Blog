@@ -27,7 +27,7 @@ function Api() {
   //查询分类下所用文章
     this.findFenLText=function (callback,id) {
         console.log(id);
-        var sql='SELECT * FROM Article where cateId=id'
+        var sql='SELECT * FROM Article where cateId='+id;
         api.sqlF(sql,callback);
     }
   //搜索文章
