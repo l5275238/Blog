@@ -12,7 +12,7 @@
             <input v-model="fenLei">
             <div>
               <button @click="addFenLei">提交</button>
-              <a class='no-a'>取消</a></div>
+              <a class='no-a' @click="isAdd=!isAdd">取消</a></div>
 
           </div>
         </transition>
@@ -190,6 +190,9 @@
         })
           .then(function (response) {
             that.fetData();
+            that.isAdd=!that.isAdd;
+            that.fenLei="";
+
           })
           .catch(function (err) {
             console.log(err);
@@ -220,7 +223,7 @@
       },
       showText(obj) {
         this.nowText = obj;
-        clickShow(obj,this.textList)
+        this.clickShow(obj,this.textList)
       }
     }
 
@@ -233,7 +236,7 @@
     border-left: 3px  solid #ec7259;
   }
   .active2{
-
+    background: #c0c0c0;
   }
   input {
     background-color: white;
