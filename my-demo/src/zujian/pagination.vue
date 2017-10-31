@@ -20,7 +20,15 @@
       <div id='bookList'>
         <div v-for="item in tableData1" @click="findText(item.id,item)" v-bind:class="{ active: item.isClick }">
           <span>{{item.text}}</span>
+          <Dropdown trigger="click">
+            <a href="javascript:void(0)">
           <Icon type="gear-b"></Icon>
+            </a>
+            <DropdownMenu slot="list">
+              <DropdownItem name="edit">编辑</DropdownItem>
+              <DropdownItem name="delet">删除</DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
         </div>
       </div>
     </div>
@@ -43,7 +51,15 @@
         <p>请输入内容</p>
       </div>
     </div>
+    <Modal
+      v-model="editModel"
+      title="修改文章分类"
+      :loading="loading"
+      @on-ok="fetData">
+      <input v-model="editFen.title">
+    </Modal>
   </div>
+
 </template>
 
 <script>
@@ -58,16 +74,9 @@
         nowText: {},
         tableData1: [],
         textList: [],
-      }
-    },
-    props: {       //props 把数据传给子组件 以下属性是组件数据的一个字段，期望从父作用域传下来。子组件需要显式地用 props 选项 声明
-      html: {// 数据总条数
-        type: String, //数据类型 验证
-        default: ''  //默认值
-      },
-      imgServer: {
-        type: String,
-        default: ''
+        editModel:false,
+        editFen:{},
+        loading:true,
       }
     },
     computed: {},
@@ -147,7 +156,6 @@
 
       };
       editor.customConfig.customAlert = function (info) {
-        console.log(info)
         // info 是需要提示的内容
         alert('自定义提示：' + info)
       }
@@ -159,7 +167,6 @@
       editor.create();
       this.fetData();
       this.editor = editor;
-      console.log(editor.txt.html);
 
     },
     methods: {
@@ -173,7 +180,7 @@
         var that = this;
         this.$ajax.post('/findCategory', {})
           .then(function (response) {
-            console.log(response.data);
+
             that.tableData1 = response.data;
           })
           .catch(function (err) {
@@ -202,7 +209,6 @@
       findText(id,itme) {
         var that = this;
         this.clickShow(itme,this.tableData1)
-        console.log(this.tableData1);
         this.$ajax.post('/findFenLText', {
           params: {
             id: id,
@@ -220,6 +226,16 @@
           list[i].isClick=false;
         }
         item.isClick=true;
+      },
+      //修改分类
+      editFenLei(obj){
+        debugger
+        this.editFen=obj;
+        this.editModel=true;
+      },
+      //删除分类
+      deletFenLei(id){
+
       },
       showText(obj) {
         this.nowText = obj;

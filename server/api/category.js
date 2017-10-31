@@ -11,7 +11,7 @@ function Api() {
   }
   //获取分类列表
   this.findCategory=function (callback) {
-    var sql="SELECT * FROM category"
+    var sql="SELECT * FROM category order by id desc"
     api.sqlF(sql,callback)
 
   }
