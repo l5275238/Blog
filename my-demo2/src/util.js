@@ -1,10 +1,12 @@
 export default{
-  install(Vue,options)
+  install:function(Vue,options)
   {
-    Vue.prototype.getData = function () {
+    var obj=Vue.prototype;
+    obj.getData = function () {
       console.log('我是插件中的方法');
     }
-    Vue.prototype.url='/api/';
+    obj.url='/api/';
+
   }
 }/**
  * Created by T-Mac on 2017/9/27.

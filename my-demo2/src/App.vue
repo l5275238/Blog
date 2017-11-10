@@ -1,5 +1,6 @@
 <template>
   <div id="app"  >
+    <canvas id="canvas"></canvas>
   <div class="container" >
     <div class="col-md-3">
       <div class="nav-title">
@@ -68,6 +69,7 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex';
 export default {
   name: 'app',
   data(){
@@ -87,11 +89,27 @@ export default {
     }
 
   },
+  computed(){
+    mapState({
+      // 箭头函数可使代码更简练
+      count: state => state.count,
+
+      // 传字符串参数 'count' 等同于 `state => state.count`
+      countAlias: 'count',
+
+      // 为了能够使用 `this` 获取局部状态，必须使用常规函数
+      countPlusLocalState (state) {
+        return state.count + this.localCount
+      }
+    })
+  },
+
   mounted(){
     this.getUser();
     this.getAriticle();
     this.getCategory();
     this.getLable();
+    console.log(this.$store);
   },
   watch:{
     "search"(newValue, oldValue){
@@ -289,6 +307,12 @@ export default {
   }
   .modal-body .list-group-item{
 padding-left: 0;
+  }
+  #canvas{
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
 
 </style>

@@ -81,20 +81,22 @@ export default {
 #heleo{
   padding: 0;
   margin: 0;
+  padding-top: 50px;
+  background: rgba(255,255,255,1);
 }
 .wenZhang{
-  background: rgba(255,255,255,0.7);
+
   padding: 10px 20px;
-  margin-bottom: 20px;
-  border-radius: 10px;
+  /*margin-bottom: 20px;*/
+  /*border-radius: 10px;*/
   cursor: pointer;
   box-sizing: content-box;
 }
-  .wenZhang:hover{
-    border: #2aabd2 1px solid;
-    box-sizing: content-box;
+  /*.wenZhang:hover{*/
+    /*border: #2aabd2 1px solid;*/
+    /*box-sizing: content-box;*/
 
-  }
+  /*}*/
 .wenZhang .content{
   /*background: #f5f7f9;*/
   text-align: left;

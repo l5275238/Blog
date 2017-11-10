@@ -1,8 +1,6 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import
-
-  Vue from 'vue'
+import Vue from 'vue'
 import App from './App'
 import axios from 'axios';
 import router from './router'
@@ -11,6 +9,7 @@ import 'bootstrap/js/bootstrap.min.js'
 import 'bootstrap/css/bootstrap.min.css'
 import pagination from '@/components/pagination'
 import util from './util'
+import store from './store'
 Vue.use(util);
 
 
@@ -39,6 +38,7 @@ axios.interceptors.response.use(function (response) {
 window.myvue=new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App },
 })
