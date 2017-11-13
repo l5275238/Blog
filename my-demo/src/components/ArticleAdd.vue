@@ -1,22 +1,21 @@
 <template>
-<div class="Addarticle" id="Addarticle">
-  <h2>标题</h2>
-  <Input v-model="title" type="textarea" style="background: none" :autosize="{minRows: 2}" placeholder="请输入..."></Input>
-  <h2>选择分类</h2>
-  <Select v-model="category" style="width:200px">
-    <Option v-for="item in categoryList" :value="item.id">{{ item.text }}</Option>
-  </Select>
-  <div id="editor">
-  <!--<mavon-editor  v-model="content"   @save="submit" @imgAdd="imgAdd"/></mavon-editor>-->
-    <vue-editor v-model="content"></vue-editor>
+  <div class="Addarticle">
+    <h2>标题</h2>
+    <Input v-model="title" type="textarea" :autosize="{minRows: 2}" placeholder="请输入..."></Input>
+    <h2>选择分类</h2>
+    <Select v-model="category" style="width:200px">
+      <Option v-for="item in categoryList" :value="item.id">{{ item.text }}</Option>
+    </Select>
+    <h2>发布文章</h2>
+    <div id="editor">
+      <mavon-editor  v-model="content"   @save="submit" @imgAdd="imgAdd"/></mavon-editor>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
-  import { VueEditor } from 'vue2-editor'
-//  import { mavonEditor } from 'mavon-editor'
-//  import 'mavon-editor/dist/css/index.css'
+  import { mavonEditor } from 'mavon-editor'
+  import 'mavon-editor/dist/css/index.css'
 
   export default {
     name: 'Addarticle',
@@ -35,11 +34,10 @@
       }
     },
     components: {
-      VueEditor
+      mavonEditor
       // or 'mavon-editor': mavonEditor
     },
     created(){
-//      console.log(VueQuillEditor);
       this.fetData();
     },
     methods: {
@@ -72,7 +70,7 @@
           })
             .then(function(response){
               var data=response.data[0];
-              that.content=data.text;
+              that.content=data.html;
               that.title=data.title;
               that.category=data.cateId;
               console.log(data.text);
@@ -96,7 +94,6 @@
 
       },
       imgAdd(fileName,file){
-        console.log(file);
         var that=this;
         var oMyForm = new FormData();
         oMyForm.append("img", file);
@@ -109,7 +106,7 @@
         })
           .then(function(response){
             console.log(response);
-            that.content+=('![图片](/static/'+response.filename+')')
+            that.content+='![图片]('+that.url+response.path+')'
 
           })
           .catch(function(err){
@@ -118,41 +115,41 @@
 
       },
       submit(value ,reder){
-          if(this.$route.query.id){
-            this.$ajax.post('/updateArticle',{
-              params:{
-                title:this.title,
-                cateId:this.category,
-                text:this.content,
-                id:this.$route.query.id,
-                html:reder
-              }
-            })
-              .then(function(response){
-                console.log(response.data);
+        if(this.$route.query.id){
+          this.$ajax.post('/updateArticle',{
+            params:{
+              title:this.title,
+              cateId:this.category,
+              text:this.content,
+              id:this.$route.query.id,
+              html:reder
+            }
+          })
+            .then(function(response){
+              console.log(response.data);
 //            that.categoryList=response.data;
-              })
-              .catch(function(err){
-                console.log(err);
-              });
-          }
-          else {
-            this.$ajax.post('/addArticle',{
-              params:{
-                title:this.title,
-                cateId:this.category,
-                text:this.content,
-                html:reder
-              }
             })
-              .then(function(response){
-                console.log(response.data);
+            .catch(function(err){
+              console.log(err);
+            });
+        }
+        else {
+          this.$ajax.post('/addArticle',{
+            params:{
+              title:this.title,
+              cateId:this.category,
+              text:this.content,
+              html:reder
+            }
+          })
+            .then(function(response){
+              console.log(response.data);
 //            that.categoryList=response.data;
-              })
-              .catch(function(err){
-                console.log(err);
-              });
-          }
+            })
+            .catch(function(err){
+              console.log(err);
+            });
+        }
 
       }
 
@@ -162,29 +159,29 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
-}
+  h1, h2 {
+    font-weight: normal;
+  }
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
 
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
+  li {
+    display: inline-block;
+    margin: 0 10px;
+  }
 
-a {
-  color: #42b983;
-}
-#editor{
-  overflow: hidden;
-}
-.v-note-wrapper{
-  z-index: 1;
-}
+  a {
+    color: #42b983;
+  }
+  #editor{
+    overflow: hidden;
+  }
+  .v-note-wrapper{
+    z-index: 1;
+  }
   #upload{
     position: fixed;
     right: 20px;
@@ -193,9 +190,8 @@ a {
   }
   h2{
     text-align: center;
-     height: 40px;
+    height: 40px;
     line-height: 40px;
 
   }
-
 </style>
