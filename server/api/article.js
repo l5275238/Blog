@@ -6,8 +6,9 @@ function Api() {
   var api=require('../api');
   //添加文章
   this.addArticle=function (callback,text) {
-    var sql="INSERT INTO Article (title,cateId, text ,date,html) VALUES ("+text+")";
-    api.sqlF(sql,callback)
+      var sql="INSERT INTO Article (title,cateId, text ,date,html) VALUES ("+text+")";
+      console.log(sql);
+      api.sqlF(sql,callback)
   }
   //分页获取文章列表
   this.findArticle=function (callback,page,row) {

@@ -8,7 +8,7 @@
     </Select>
     <h2>发布文章</h2>
     <div id="editor">
-      <mavon-editor  v-model="content"   @save="submit" @imgAdd="imgAdd"/></mavon-editor>
+      <mavon-editor  v-model="content"  style="overflow: auto"  @save="submit" @imgAdd="imgAdd"/></mavon-editor>
     </div>
   </div>
 </template>
@@ -115,7 +115,8 @@
 
       },
       submit(value ,reder){
-        if(this.$route.query.id){
+
+        if(this.$route.query.id!=""){
           this.$ajax.post('/updateArticle',{
             params:{
               title:this.title,

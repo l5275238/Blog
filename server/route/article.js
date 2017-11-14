@@ -51,11 +51,14 @@ route.post('/updateArticle',function (req,res) {
     var data= d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
     var title=req.body.params.title;
     var cateId=req.body.params.cateId;
-    var text=req.body.params.text;
-    var html=req.body.params.html;
+    var text=req.body.params.text.replace(/'/g,'\\\'');
+    var html=req.body.params.html.replace(/'/g,'\\\'');
 
-    var obj="'"+title+"',"+"'"+cateId+"',"+"'"+text+"',"+"'"+data+"','"+html+"'"
-    api.addArticle(function (error,rows) {
+
+      var obj="'"+title+"',"+"'"+cateId+"',"+"'"+text+"',"+"'"+data+"','"+html+"'";
+
+
+      api.addArticle(function (error,rows) {
       callBack(error,rows,req,res)
     },obj)
   })
